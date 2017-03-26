@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane prefHeight="566.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AssistanTFx.ComponentsController.FortiadcController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints vgrow="SOMETIMES" />
+    <RowConstraints vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TableView fx:id="fortiadcTable" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+        <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name">
+                <cellValueFactory>
+                    <PropertyValueFactory property="name" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="mgmtIpColumn" prefWidth="75.0" text="Management IP">
+                <cellValueFactory>
+                    <PropertyValueFactory property="mgmtIp" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="usernameColumn" prefWidth="75.0" text="Username">
+                <cellValueFactory>
+                    <PropertyValueFactory property="username" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="passwordColumn" prefWidth="75.0" text="Password">
+                <cellValueFactory>
+                    <PropertyValueFactory property="password" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="telnetPortColumn" prefWidth="75.0" text="Telnet Port">
+                <cellValueFactory>
+                    <PropertyValueFactory property="telnetPort" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="sshPortColumn" prefWidth="75.0" text="SSH Port">
+                <cellValueFactory>
+                    <PropertyValueFactory property="sshPort" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="httpPortColumn" prefWidth="75.0" text="HTTP Port">
+                <cellValueFactory>
+                    <PropertyValueFactory property="httpPort" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="httpsPortColumn" prefWidth="75.0" text="HTTPS Port">
+                <cellValueFactory>
+                    <PropertyValueFactory property="httpsPort" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="consoleColumn" prefWidth="75.0" text="Console">
+                <cellValueFactory>
+                    <PropertyValueFactory property="console" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+              </FXCollections>
+          </items>
+      </TableView>
+      <HBox GridPane.rowIndex="1">
+         <children>
+            <TextField fx:id="nameInput" promptText="Name" />
+            <TextField fx:id="mgmtIpInput" layoutX="10.0" layoutY="10.0" promptText="Management IP" />
+            <TextField fx:id="usernameInput" layoutX="10.0" layoutY="10.0" promptText="Username" />
+            <TextField fx:id="passwordInput" layoutX="159.0" layoutY="10.0" promptText="Password" />
+            <TextField fx:id="telnetPortInput" layoutX="159.0" layoutY="10.0" promptText="Telnet Port" />
+            <TextField fx:id="sshPortInput" layoutX="147.0" layoutY="10.0" promptText="SSH Port" />
+            <TextField fx:id="httpPortInput" layoutX="238.0" layoutY="10.0" promptText="HTTP Port" />
+            <TextField fx:id="httpsPortInput" layoutX="206.0" layoutY="10.0" promptText="HTTPS Port" />
+            <TextField fx:id="consoleInput" layoutX="610.0" layoutY="10.0" promptText="Console" />
+         </children>
+      </HBox>
+      <ToolBar GridPane.rowIndex="3">
+        <items>
+          <Button fx:id="addButton" mnemonicParsing="false" onMouseClicked="#clickOnAddButton" text="Add" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#clickOnDeleteButton" text="Delete" />
+        </items>
+      </ToolBar>
+      <Separator prefWidth="200.0" GridPane.rowIndex="2" />
+   </children>
+</GridPane>

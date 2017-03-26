@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AssistanTFx.Controller">
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar id="menuBar">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+               <effect>
+                  <Reflection />
+               </effect>
+            </MenuBar>
+            <ToolBar id="toolBar" prefHeight="40.0" prefWidth="200.0">
+              <items>
+                <Button id="globalSettings" fx:id="globalSettingsButton" mnemonicParsing="false" text="Settings" />
+                  <Button id="buttonMainDirectory" mnemonicParsing="false" text="Main Directory" />
+              </items>
+            </ToolBar>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Accordion fx:id="appAccordion">
+              <panes>
+                <TitledPane id="titledPaneSharedObjects" fx:id="sharedObjectsPane" animated="false" onMouseClicked="#clickOnSharedObjectsPane" text="Shared Objects">
+                     <content>
+                        <ScrollPane>
+                           <content>
+                              <VBox spacing="0.5">
+                                 <children>
+                                    <Label fx:id="fortiadcLabel" onMouseClicked="#clickOnFortiadcLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        FortiADC" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="ipAddressLabel" layoutX="10.0" layoutY="10.0" onMouseClicked="#clickOnIpAddressLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        IP Address" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="receiversLabel" layoutX="10.0" layoutY="36.0" onMouseClicked="#clickOnReceiversLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        Receivers" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="uriResourcesLabel" layoutX="10.0" layoutY="62.0" onMouseClicked="#clickOnUriResourcesLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        URI Resources" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </content>
+                </TitledPane>
+                <TitledPane id="titledPaneFortiadcTestingAssistant" fx:id="fortiadcTestingAssistantPane" animated="false" onMouseClicked="#clickOnFortiadcTestingAssistantPane" text="FortiADC Testing Assistant">
+                     <content>
+                        <ScrollPane>
+                           <content>
+                              <VBox spacing="0.5">
+                                 <children>
+                                    <Label fx:id="crashDetectorLabel" onMouseClicked="#clickOnCrashDetectorLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        Crash Detector" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="configurationLabel" layoutX="10.0" layoutY="10.0" onMouseClicked="#clickOnConfigurationLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        Configuration" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="licenseLabel" layoutX="10.0" layoutY="10.0" onMouseClicked="#clickOnLicenseLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        License" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="regularDetectorLabel" layoutX="10.0" layoutY="62.0" onMouseClicked="#clickOnRegularDetectorLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        Regular Detector" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="upgradingAssistantLabel" layoutX="10.0" layoutY="88.0" onMouseClicked="#clickOnUpgradingAssistantLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        Upgrading Assistant" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children></VBox>
+                           </content>
+                        </ScrollPane>
+                     </content>
+                </TitledPane>
+                <TitledPane id="titledPaneHaTestingAssistant" fx:id="haTestingAssistantPane" animated="false" onMouseClicked="#clickOnHaTestingAssistantPane" text="HA Testing Assistant">
+                     <content>
+                        <ScrollPane>
+                           <content>
+                              <VBox spacing="0.5">
+                                 <children>
+                                    <Label fx:id="haUpgradingLabel" onMouseClicked="#clickOnHaUpgradingLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        HA Upgrading" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children></VBox>
+                           </content>
+                        </ScrollPane>
+                     </content>
+                </TitledPane>
+                  <TitledPane id="titledPaneWorkAssistant" fx:id="workAssistantPane" animated="false" onMouseClicked="#clickOnWorkAssistantPane" text="Work Assistant">
+                     <content>
+                        <ScrollPane>
+                           <content>
+                              <VBox spacing="0.5">
+                                 <children>
+                                    <Label fx:id="ftpServerLabel" onMouseClicked="#clickOnFtpServerLable" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        FTP/TFTP/HTTP Server" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="healthCheckLabel" onMouseClicked="#clickOnHealthCheckLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        Health Check" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="linuxRunLabel" layoutX="10.0" layoutY="36.0" onMouseClicked="#clickOnLinuxRunLabel" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #2a3951;" text="        Linux Run" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children></VBox>
+                           </content>
+                        </ScrollPane>
+                     </content>
+                  </TitledPane>
+              </panes>
+            </Accordion>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+         </children>
+      </HBox>
+   </left>
+   <bottom>
+      <VBox prefHeight="180.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Separator prefWidth="200.0" />
+            <Label text="Message Board">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <TabPane tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab id="tabWarning" text="Warning">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea prefHeight="128.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                <Tab id="tabConsole" text="Console">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea prefHeight="128.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>

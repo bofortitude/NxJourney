@@ -1,0 +1,18 @@
+
+
+for file in /proc/sys/net/ipv4/conf/*; do echo 1 > $file/rp_filter; done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

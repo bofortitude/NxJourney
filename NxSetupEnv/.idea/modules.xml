@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NxSetupEnv.iml" filepath="$PROJECT_DIR$/.idea/modules/NxSetupEnv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NxSetupEnv_main.iml" filepath="$PROJECT_DIR$/.idea/modules/NxSetupEnv_main.iml" group="NxSetupEnv" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NxSetupEnv_test.iml" filepath="$PROJECT_DIR$/.idea/modules/NxSetupEnv_test.iml" group="NxSetupEnv" />
+    </modules>
+  </component>
+</project>
