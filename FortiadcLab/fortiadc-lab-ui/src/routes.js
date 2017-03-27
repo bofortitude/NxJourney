@@ -32,7 +32,7 @@ let routes = [
         iconCls: 'el-icon-setting',//图标样式class
         children: [
             { path: '/us_lab_topology', component: us_lab_topology, name: 'US Lab Topology' },
-            { path: '/us_lab_plan', component: us_lab_plan, name: 'US Lab Plan' },
+            { path: '/us_lab_plan', component: us_lab_plan, name: 'US Lab Resource Plan' },
             { path: '/tester_environment', component: tester_environment, name: 'Tester Environment' },
             { path: '/lab_tools', component: lab_tools, name: 'Lab Tools' }
         ]
