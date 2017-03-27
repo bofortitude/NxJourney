@@ -1,6 +1,8 @@
 <template>
     <section>
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+
+        <!-- <el-col :span="24" class="toolbar" style="padding-bottom: 0px;"> -->
+        <div :span="24" class="toolbar" style="padding-bottom: 0px;">
             <el-form :inline="true" :model="filters">
                 <el-form-item>
                     <el-input v-model="filters.name" placeholder="Name"></el-input>
@@ -15,7 +17,9 @@
                     <el-button type="primary" @click="handleRefresh">Refresh</el-button>
                 </el-form-item>
             </el-form>
-        </el-col>
+        </div>
+        <!-- </el-col> -->
+
 
         <el-table stripe border :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
             <el-table-column type="selection" width="55">
@@ -41,11 +45,13 @@
         </el-table>
 
         <!--工具条-->
-        <el-col :span="24" class="toolbar">
+        <!-- <el-col :span="24" class="toolbar"> -->
+        <div :span="24" class="toolbar">
             <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button>
             <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size='50' :total="total" style="float:right;">
             </el-pagination>
-        </el-col>
+        <!-- </el-col> -->
+        </div>
 
         <!--编辑界面-->
         <el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
@@ -104,7 +110,7 @@
         </el-dialog>
 
     </section>
-    
+
 </template>
 
 <script>
@@ -161,6 +167,10 @@
         },
         methods: {
             //性别显示转换
+            handleRefresh: function () {
+                // body...
+                console.log('refresh button is clicked')
+            },
             formatSex: function (row, column) {
                 return row.sex == 1 ? '男' : row.sex == 0 ? '女' : '未知';
             },
@@ -302,9 +312,9 @@
             this.getUsers();
         }
     }
-    
+
 </script>
 
 <style scoped lang="scss">
-  
+
 </style>
