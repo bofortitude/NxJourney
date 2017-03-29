@@ -6,6 +6,7 @@
             <div id = 'tool_panel' class="toolbar">
                 <el-button type="primary" @click='refresh_method' >Refresh</el-button>
                 <el-button type="primary" @click='click_vcenter_button' >vCenter</el-button>
+                <el-button type="primary" @click='click_test_button' >Test Button</el-button>
             </div>
             <div id="us_lab_topology" v-loading.body="loading"></div>
         </el-tab-pane>
@@ -44,6 +45,7 @@
 <script>
   import cytoscape from 'cytoscape';
   import NProgress from 'nprogress';
+  import { getUsTopologyData } from '../../api/api';
 
   export default {
 
@@ -73,9 +75,48 @@
           vmWebConsoleUrl: '',
         },
         node_profile_table_data: [],
+
+        topologyDataTableRaw: [],
+
+        tmpData: {'tmpdata': 'value1'},
+        tmp2Data: 'tmp2data',
       };
     },
+
+    watch: {
+      tmpData: function (value) {
+        // body...
+        console.log('new value changed: ==> '+value)
+      }
+
+
+    },
+
+
     methods: {
+      click_test_button(){
+        // getUsTopologyData().then((res) => {
+        //   this.topologyDataTableRaw = res.data.usTopologyData;
+        //   this.usTopologyDataRaw_to_formal();
+        // });
+
+        this.tmpData['tmpdata'] = 'value2';
+        console.log(this.tmpData)
+
+        // let abc = {'name':'tmo', 'gender':'man'};
+        // console.log(abc)
+        // console.log(JSON.stringify(abc));
+
+        // let bcd = '{"key1":"value1", "key2":"value2"'
+        // try {
+        //   // statements
+        //   console.log(JSON.parse(bcd))
+        // } catch(e) {
+        //   // statements
+        //   // console.log(e);
+        // }
+
+      },
 
       handleClick(tab, event) {
         // console.log(tab, event);
@@ -153,7 +194,79 @@
         };
       },
 
+      usTopologyDataRaw_to_formal(){
+
+        let node_list = [];
+        let edge_list = [];
+        let style_list = [];
+
+
+        for (let num in this.topologyDataTableRaw){
+          let item = this.topologyDataTableRaw[num];
+
+          if (item['type'] === 'node'){
+            node_list.push(JSON.parse(item['content']))
+
+          }else if (item['type'] === 'edge') {
+            edge_list.push(JSON.parse(item['content']))
+
+          }else if (item['type'] === 'style'){
+            style_list.push(JSON.parse(item['content']))
+          }
+
+        };
+
+        return {'nodeList': node_list, 'edgeList':edge_list, 'styleList': style_list};
+
+
+
+      },
+
       draw_lab_topology(){
+        NProgress.start();
+        this.loading = true;
+        this.getTopologyData();
+        var cy = cytoscape({
+          // this.cy = cytoscape({
+          container: document.getElementById('us_lab_topology'),
+          boxSelectionEnabled: true,
+          autounselectify: true,
+
+          layout: {
+            name: 'preset',
+            // padding: 100
+          },
+
+          ready: function (argument) {
+            // body...
+          },
+
+          elements: {nodes:[], edges:[]},
+          style:[],
+
+        });
+        cy.on('tap', 'node', { showDialog: this.show_node_profile }, function (evt) {
+          // body...
+          if (evt.cyTarget !== cy){
+            // console.log(this.loading);
+            // console.log(evt.cyTarget.id())
+            // console.log(evt.cyTarget.data().myfoo.a)
+            // console.log(evt.data.showDialog)
+            evt.data.showDialog(evt.cyTarget.data().profile);
+          };
+        });
+
+        this.cy = cy;
+        this.loading = false;
+        NProgress.done();
+
+      },
+
+
+////////////////////////////////////////////////////////////
+
+
+      draw_lab_topology2(){
         NProgress.start();
         this.loading = true;
         this.getTopologyData();

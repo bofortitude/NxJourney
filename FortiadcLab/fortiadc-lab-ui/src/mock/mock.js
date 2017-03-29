@@ -1,6 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { LoginUsers, Users } from '../mockdata/user';
+import {usTopologySettings, usTopologyData } from '../mockdata/userdata';
 let _Users = Users;
 
 export default {
@@ -145,6 +146,20 @@ export default {
           resolve([200, {
             code: 200,
             msg: '新增成功'
+          }]);
+        }, 500);
+      });
+    });
+
+    mock.onGet('/userdata/ustopologydata').reply(config => {
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: 'return OK!',
+            usTopologyData: usTopologyData
+
           }]);
         }, 500);
       });
