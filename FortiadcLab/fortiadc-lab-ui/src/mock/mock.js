@@ -2,6 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { LoginUsers, Users } from '../mockdata/user';
 import {usTopologySettings, usTopologyData } from '../mockdata/userdata';
+import { usLabResourcePlanData } from '../mockdata/usLabResourcePlanData';
 let _Users = Users;
 
 export default {
@@ -62,13 +63,14 @@ export default {
 
     //获取用户列表（分页）
     mock.onGet('/user/listpage').reply(config => {
+
       let {page, name} = config.params;
       let mockUsers = _Users.filter(user => {
         if (name && user.name.indexOf(name) == -1) return false;
         return true;
       });
       let total = mockUsers.length;
-      mockUsers = mockUsers.filter((u, index) => index < 20 * page && index >= 20 * (page - 1));
+      mockUsers = mockUsers.filter((u, index) => index < 50 * page && index >= 50 * (page - 1));
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
@@ -151,7 +153,8 @@ export default {
       });
     });
 
-    mock.onGet('/userdata/ustopologydata').reply(config => {
+/////////////////////////////////////////
+    mock.onGet('/userdata/uslabtopology/topologydata').reply(config => {
 
       return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -165,5 +168,119 @@ export default {
       });
     });
 
+    mock.onPost('/userdata/uslabtopology/additem').reply(config => {
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: 'return OK!',
+
+          }]);
+        }, 500);
+      });
+    });
+
+    mock.onPost('/userdata/uslabtopology/edititem').reply(config => {
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: 'return OK!',
+
+          }]);
+        }, 500);
+      });
+    });
+
+    mock.onPost('/userdata/uslabtopology/deleteitem').reply(config => {
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: 'return OK!',
+
+          }]);
+        }, 500);
+      });
+    });
+
+    mock.onGet('/userdata/uslabresourceplan/getlist').reply(config => {
+      let {page, name, page_size} = config.params;
+      let mockUsers = usLabResourcePlanData.filter(user => {
+        if (name && user.name.indexOf(name) == -1) return false;
+        return true;
+      });
+      let total = mockUsers.length;
+      mockUsers = mockUsers.filter((u, index) => index < page_size * page && index >= page_size * (page - 1));
+
+      // total = 170
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            total: total,
+            table_data: mockUsers
+          }]);
+        }, 1000);
+      });
+
+
+    });
+
+    mock.onGet('/userdata/uslabresourceplan/addrecord').reply(config => {
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: 'OK'
+          }]);
+        }, 500);
+      });
+    });
+
+    mock.onGet('/userdata/uslabresourceplan/removerecord').reply(config => {
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: 'OK'
+          }]);
+        }, 500);
+      });
+    });
+
+    mock.onGet('/userdata/uslabresourceplan/batchremoverecord').reply(config => {
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: 'OK'
+          }]);
+        }, 500);
+      });
+    });
+
+    mock.onGet('/userdata/uslabresourceplan/editrecord').reply(config => {
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: 'OK'
+          }]);
+        }, 500);
+      });
+    });
+
+
+
   }
+
+
 };

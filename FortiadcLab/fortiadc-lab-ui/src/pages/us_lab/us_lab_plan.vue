@@ -21,20 +21,26 @@
         <!-- </el-col> -->
 
 
-        <el-table stripe border :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+        <el-table stripe border :data="table_data" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
             <el-table-column type="selection" width="55">
             </el-table-column>
-            <el-table-column type="index" width="60">
-            </el-table-column>
+            <!-- <el-table-column type="index" width="60">
+            </el-table-column> -->
             <el-table-column prop="name" label="Name" width="120" sortable fit>
             </el-table-column>
-            <el-table-column prop="sex" label="性别" width="100" :formatter="formatSex" fit>
+            <el-table-column prop="ip" label="IP Address" width="220" fit>
             </el-table-column>
-            <el-table-column prop="age" label="年龄" width="100" fit>
+            <el-table-column prop="ip_prefix" label="IP Prefix" width="100" fit>
             </el-table-column>
-            <el-table-column prop="birth" label="生日" width="120" fit>
+            <el-table-column prop="gateway" label="Gateway" width="120" fit>
             </el-table-column>
-            <el-table-column prop="addr" label="地址" min-width="180" fit>
+            <el-table-column prop="vlan" label="VLAN" width="160" fit>
+            </el-table-column>
+            <el-table-column prop="ha_id" label="HA ID" width="140" fit>
+            </el-table-column>
+            <el-table-column prop="ospf_area_id" label="OSPF Area ID" min-width="100" fit>
+            </el-table-column>
+            <el-table-column prop="description" label="Description" min-width="180" fit>
             </el-table-column>
             <el-table-column label="Action" width="150" fit>
                 <template scope="scope">
@@ -45,67 +51,138 @@
         </el-table>
 
         <!--工具条-->
-        <!-- <el-col :span="24" class="toolbar"> -->
+
         <div :span="24" class="toolbar">
             <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button>
-            <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size='50' :total="total" style="float:right;">
+            <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size='table_page_size' :total="total" style="float:right;">
             </el-pagination>
-        <!-- </el-col> -->
         </div>
 
         <!--编辑界面-->
-        <el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
+        <el-dialog title="Edit" v-model="editFormVisible" :close-on-click-modal="false">
             <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-                <el-form-item label="姓名" prop="name">
+                <el-form-item label="name" prop="name">
                     <el-input v-model="editForm.name" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="性别">
-                    <el-radio-group v-model="editForm.sex">
-                        <el-radio class="radio" :label="1">男</el-radio>
-                        <el-radio class="radio" :label="0">女</el-radio>
-                    </el-radio-group>
+                <el-form-item label="IP">
+                    <el-col :span="10">
+                        <el-input v-model="editForm.minIp" auto-complete="off"></el-input>
+                    </el-col>
+                    <el-col class="line" :span="1">to</el-col>
+                    <el-col :span="10">
+                        <el-input v-model="editForm.maxIp" auto-complete="off"></el-input>
+                    </el-col>
                 </el-form-item>
-                <el-form-item label="年龄">
-                    <el-input-number v-model="editForm.age" :min="0" :max="200"></el-input-number>
+                <el-form-item label="Prefix">
+                    <el-input-number v-model="editForm.ip_prefix" :min="1" :max="128"></el-input-number>
                 </el-form-item>
-                <el-form-item label="生日">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
+                <el-form-item label="Gateway">
+                    <el-input v-model="editForm.gateway" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="地址">
-                    <el-input type="textarea" v-model="editForm.addr"></el-input>
+                <el-form-item label="HA ID">
+                    <el-col :span="7">
+                        <el-input-number v-model="editForm.minHaId" :min="1" :max="32"></el-input-number>
+                    </el-col>
+                    <el-col class="line" :span="2">to</el-col>
+                    <el-col :span="7">
+                        <el-input-number v-model="editForm.maxHaId" :min="1" :max="32"></el-input-number>
+                    </el-col>
                 </el-form-item>
+                <el-form-item label="VLAN">
+                    <el-col :span="7">
+                        <el-input-number v-model="editForm.minVlan" :min="1" :max="4095"></el-input-number>
+                    </el-col>
+                    <el-col class="line" :span="2">to</el-col>
+                    <el-col :span="7">
+                        <el-input-number v-model="editForm.maxVlan" :min="1" :max="4095"></el-input-number>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="OSPF ID">
+                    <el-col :span="7">
+                        <el-input-number v-model="editForm.minOspfId" :min="1" :max="4095"></el-input-number>
+                    </el-col>
+                    <el-col class="line" :span="2">to</el-col>
+                    <el-col :span="7">
+                        <el-input-number v-model="editForm.maxOspfId" :min="1" :max="4095"></el-input-number>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="Description">
+                    <el-input
+                    type="textarea"
+                    :rows="5"
+                    placeholder="Please input the content."
+                    v-model="editForm.description">
+                    </el-input>
+                </el-form-item>
+
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native="editFormVisible = false">取消</el-button>
-                <el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>
+                <el-button @click.native="editFormVisible = false">Cancel</el-button>
+                <el-button type="primary" @click.native="editSubmit" :loading="editLoading">Submit</el-button>
             </div>
         </el-dialog>
 
         <!--新增界面-->
-        <el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
+        <el-dialog title="New" v-model="addFormVisible" :close-on-click-modal="false">
             <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-                <el-form-item label="姓名" prop="name">
+                <el-form-item label="Name" prop="name">
                     <el-input v-model="addForm.name" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="性别">
-                    <el-radio-group v-model="addForm.sex">
-                        <el-radio class="radio" :label="1">男</el-radio>
-                        <el-radio class="radio" :label="0">女</el-radio>
-                    </el-radio-group>
+                <el-form-item label="IP">
+                    <el-col :span="10">
+                        <el-input v-model="addForm.minIp" auto-complete="off"></el-input>
+                    </el-col>
+                    <el-col class="line" :span="1">to</el-col>
+                    <el-col :span="10">
+                        <el-input v-model="addForm.maxIp" auto-complete="off"></el-input>
+                    </el-col>
                 </el-form-item>
-                <el-form-item label="年龄">
-                    <el-input-number v-model="addForm.age" :min="0" :max="200"></el-input-number>
+                <el-form-item label="Prefix">
+                    <el-input-number v-model="addForm.ip_prefix" :min="1" :max="128"></el-input-number>
                 </el-form-item>
-                <el-form-item label="生日">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="addForm.birth"></el-date-picker>
+                <el-form-item label="Gateway">
+                    <el-input v-model="addForm.gateway" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="地址">
-                    <el-input type="textarea" v-model="addForm.addr"></el-input>
+                <el-form-item label="HA ID">
+                    <el-col :span="7">
+                        <el-input-number v-model="addForm.minHaId" :min="1" :max="32"></el-input-number>
+                    </el-col>
+                    <el-col class="line" :span="2">to</el-col>
+                    <el-col :span="7">
+                        <el-input-number v-model="addForm.maxHaId" :min="1" :max="32"></el-input-number>
+                    </el-col>
                 </el-form-item>
+                <el-form-item label="VLAN">
+                    <el-col :span="7">
+                        <el-input-number v-model="addForm.minVlan" :min="1" :max="4095"></el-input-number>
+                    </el-col>
+                    <el-col class="line" :span="2">to</el-col>
+                    <el-col :span="7">
+                        <el-input-number v-model="addForm.maxVlan" :min="1" :max="4095"></el-input-number>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="OSPF ID">
+                    <el-col :span="7">
+                        <el-input-number v-model="addForm.minOspfId" :min="1" :max="4095"></el-input-number>
+                    </el-col>
+                    <el-col class="line" :span="2">to</el-col>
+                    <el-col :span="7">
+                        <el-input-number v-model="addForm.maxOspfId" :min="1" :max="4095"></el-input-number>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="Description">
+                    <el-input
+                    type="textarea"
+                    :rows="5"
+                    placeholder="Please input the content."
+                    v-model="addForm.description">
+                    </el-input>
+                </el-form-item>
+
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native="addFormVisible = false">取消</el-button>
-                <el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
+                <el-button @click.native="addFormVisible = false">Cancel</el-button>
+                <el-button type="primary" @click.native="addSubmit" :loading="addLoading">Submit</el-button>
             </div>
         </el-dialog>
 
@@ -116,7 +193,8 @@
 <script>
     import util from '../../common/js/util'
     import NProgress from 'nprogress'
-    import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
+    // import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
+    import { getUsLabResourceList, addUsLabResourceRecord, removeUsLabResourceRecord, batchRemoveUsLabResourceRecord, editUsLabResourceRecord } from '../../api/api';
 
     export default {
         data() {
@@ -124,9 +202,39 @@
                 filters: {
                     name: ''
                 },
-                users: [],
+                table_data: [
+                    {
+                        id: 1,
+                        name: 'bo fei',
+                        ip: '1.1.1.1-1.1.1.10',
+                        ip_prefix:24,
+                        gateway:'1.1.1.254',
+                        vlan:'1000-1100',
+                        ha_id:'1-5',
+                        ospf_area_id:'10-20',
+                        description:'some description'
+                    },
+                ],
+                table_data_raw: [
+                    {
+                        id:1,
+                        name:'bo fei',
+                        minIp:'1.1.1.1',
+                        maxIp:'1.1.1.10',
+                        ip_prefix:'24',
+                        gateway:'1.1.1.254',
+                        minHaId:'1',
+                        maxHaId:'5',
+                        minVlan:'1000',
+                        maxVlan:'1100',
+                        minOspfId:10,
+                        maxOspfId:20,
+                        description:'some description'
+                    },
+                ],
                 total: 0,
                 page: 1,
+                table_page_size:3,
                 listLoading: false,
                 sels: [],//列表选中列
 
@@ -134,33 +242,27 @@
                 editLoading: false,
                 editFormRules: {
                     name: [
-                        { required: true, message: '请输入姓名', trigger: 'blur' }
+                        { required: true, message: 'Please input name', trigger: 'blur' }
                     ]
                 },
                 //编辑界面数据
                 editForm: {
                     id: 0,
                     name: '',
-                    sex: -1,
-                    age: 0,
-                    birth: '',
-                    addr: ''
+
                 },
 
                 addFormVisible: false,//新增界面是否显示
                 addLoading: false,
                 addFormRules: {
                     name: [
-                        { required: true, message: '请输入姓名', trigger: 'blur' }
+                        { required: true, message: 'Please input name', trigger: 'blur' }
                     ]
                 },
                 //新增界面数据
                 addForm: {
                     name: '',
-                    sex: -1,
-                    age: 0,
-                    birth: '',
-                    addr: ''
+
                 }
 
             }
@@ -169,26 +271,60 @@
             //性别显示转换
             handleRefresh: function () {
                 // body...
-                console.log('refresh button is clicked')
+                this.getUsers()
             },
-            formatSex: function (row, column) {
-                return row.sex == 1 ? '男' : row.sex == 0 ? '女' : '未知';
-            },
+
             handleCurrentChange(val) {
                 this.page = val;
                 this.getUsers();
+            },
+            transformTableDataRawToFormal(){
+                let new_table_data = []
+                for (let item in this.table_data_raw){
+                    let currentItem = this.table_data_raw[item]
+                    let itemObj = {}
+                    itemObj['id'] = currentItem['id']
+                    itemObj['name'] = currentItem['name']
+                    if (currentItem.hasOwnProperty('minIp') && currentItem.hasOwnProperty('maxIp')){
+                        itemObj['ip'] = currentItem['minIp']+'-'+currentItem['maxIp']
+                    }
+                    if (currentItem.hasOwnProperty('ip_prefix')){
+                        itemObj['ip_prefix'] = currentItem['ip_prefix']
+                    }
+                    if (currentItem.hasOwnProperty('gateway')){
+                        itemObj['gateway'] = currentItem['gateway']
+                    }
+                    if (currentItem.hasOwnProperty('minVlan') && currentItem.hasOwnProperty('maxVlan')){
+                        itemObj['vlan'] = currentItem['minVlan']+'-'+currentItem['maxVlan']
+                    }
+                    if (currentItem.hasOwnProperty('minOspfId') && currentItem.hasOwnProperty('maxOspfId')){
+                        itemObj['ospf_area_id'] = currentItem['minOspfId']+'-'+currentItem['maxOspfId']
+                    }
+                    if (currentItem.hasOwnProperty('minHaId') && currentItem.hasOwnProperty('maxHaId')){
+                        itemObj['ha_id'] = currentItem['minHaId']+'-'+currentItem['maxHaId']
+                    }
+                    if (currentItem.hasOwnProperty('description')){
+                        itemObj['description'] = currentItem['description']
+                    }
+                    new_table_data.push(itemObj)
+                }
+
+                this.table_data = new_table_data
+
             },
             //获取用户列表
             getUsers() {
                 let para = {
                     page: this.page,
-                    name: this.filters.name
+                    name: this.filters.name,
+                    page_size: this.table_page_size
                 };
                 this.listLoading = true;
                 NProgress.start();
-                getUserListPage(para).then((res) => {
+                getUsLabResourceList(para).then((res) => {
                     this.total = res.data.total;
-                    this.users = res.data.users;
+                    this.table_data_raw = res.data.table_data;
+                    this.transformTableDataRawToFormal();
                     this.listLoading = false;
                     NProgress.done();
                 });
@@ -201,7 +337,7 @@
                     this.listLoading = true;
                     NProgress.start();
                     let para = { id: row.id };
-                    removeUser(para).then((res) => {
+                    removeUsLabResourceRecord(para).then((res) => {
                         this.listLoading = false;
                         NProgress.done();
                         this.$notify({
@@ -225,27 +361,22 @@
                 this.addFormVisible = true;
                 this.addForm = {
                     name: '',
-                    sex: -1,
-                    age: 0,
-                    birth: '',
-                    addr: ''
                 };
             },
             //编辑
             editSubmit: function () {
                 this.$refs.editForm.validate((valid) => {
                     if (valid) {
-                        this.$confirm('确认提交吗？', '提示', {}).then(() => {
+                        this.$confirm('Are you sure to submit?', 'Edit', {}).then(() => {
                             this.editLoading = true;
                             NProgress.start();
                             let para = Object.assign({}, this.editForm);
-                            para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-                            editUser(para).then((res) => {
+                            editUsLabResourceRecord(para).then((res) => {
                                 this.editLoading = false;
                                 NProgress.done();
                                 this.$notify({
-                                    title: '成功',
-                                    message: '提交成功',
+                                    title: 'Success',
+                                    message: 'Submit successfully!',
                                     type: 'success'
                                 });
                                 this.$refs['editForm'].resetFields();
@@ -260,17 +391,16 @@
             addSubmit: function () {
                 this.$refs.addForm.validate((valid) => {
                     if (valid) {
-                        this.$confirm('确认提交吗？', '提示', {}).then(() => {
+                        this.$confirm('Are you sure to submit?', 'Add', {}).then(() => {
                             this.addLoading = true;
                             NProgress.start();
                             let para = Object.assign({}, this.addForm);
-                            para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-                            addUser(para).then((res) => {
+                            addUsLabResourceRecord(para).then((res) => {
                                 this.addLoading = false;
                                 NProgress.done();
                                 this.$notify({
-                                    title: '成功',
-                                    message: '提交成功',
+                                    title: 'Success',
+                                    message: 'Submit successfully!',
                                     type: 'success'
                                 });
                                 this.$refs['addForm'].resetFields();
@@ -287,18 +417,18 @@
             //批量删除
             batchRemove: function () {
                 var ids = this.sels.map(item => item.id).toString();
-                this.$confirm('确认删除选中记录吗？', '提示', {
+                this.$confirm('Are you sure to delete selected items?', 'Warning', {
                     type: 'warning'
                 }).then(() => {
                     this.listLoading = true;
                     NProgress.start();
                     let para = { ids: ids };
-                    batchRemoveUser(para).then((res) => {
+                    batchRemoveUsLabResourceRecord(para).then((res) => {
                         this.listLoading = false;
                         NProgress.done();
                         this.$notify({
-                            title: '成功',
-                            message: '删除成功',
+                            title: 'Success',
+                            message: 'Delete successfully!',
                             type: 'success'
                         });
                         this.getUsers();

@@ -9,7 +9,7 @@
 					<i class="fa fa-align-justify"></i>
 				</div>
 			</el-col>
-			<el-col :span="4" class="userinfo">
+			<!-- <el-col :span="4" class="userinfo">
 				<el-dropdown trigger="click">
 					<span class="el-dropdown-link userinfo-inner"><img src="../assets/user.png" /> {{sysUserName}}</span>
 					<el-dropdown-menu slot="dropdown">
@@ -17,7 +17,7 @@
 						<el-dropdown-item divided @click.native="logout">Logout</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
-			</el-col>
+			</el-col> -->
 		</el-col>
 		<el-col :span="24" class="main">
 			<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
@@ -37,7 +37,7 @@
 					<li v-for="(item,index) in $router.options.routes" v-if="!item.hidden" class="el-submenu item">
 						<template v-if="!item.leaf">
 							<div class="el-submenu__title" style="padding-left: 20px;" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)"><i :class="item.iconCls"></i></div>
-							<ul class="el-menu submenu" :class="'submenu-hook-'+index" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)"> 
+							<ul class="el-menu submenu" :class="'submenu-hook-'+index" @mouseover="showMenu(index,true)" @mouseout="showMenu(index,false)">
 								<li v-for="child in item.children" v-if="!child.hidden" class="el-menu-item" style="padding-left: 40px;" :class="$route.path==child.path?'is-active':''" @click="$router.push(child.path)">{{child.name}}</li>
 							</ul>
 						</template>
@@ -128,13 +128,15 @@
 			}
 		},
 		mounted() {
-			var user = sessionStorage.getItem('user');
-			if (user) {
-				user = JSON.parse(user);
-				this.sysUserName = user.name || '';
-				this.sysUserAvatar = user.avatar || '';
-			}
-			
+			// var user = sessionStorage.getItem('user');
+			// if (user) {
+			// 	user = JSON.parse(user);
+			// 	this.sysUserName = user.name || '';
+			// 	this.sysUserAvatar = user.avatar || '';
+			// }
+
+			this.$router.push({ path: '/us_lab_topology' });
+
 
 		}
 	}
