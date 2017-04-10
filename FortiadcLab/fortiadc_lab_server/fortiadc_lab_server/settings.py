@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'app_topo',
+    'app_topo',    # customized
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 'DIRS': [],
-        'DIRS': ['../fortiadc_lab_ui/dist'],
+        'DIRS': ['../fortiadc_lab_ui/dist'],  # customized
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,9 +77,17 @@ WSGI_APPLICATION = 'fortiadc_lab_server.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'app_topo',    # database name
+        'USER': 'root',
+        'PASSWORD': 'fortinet',    # mysql username password
+        'HOST': '10.106.129.11',
     }
 }
 
@@ -122,6 +130,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+# customized
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "../fortiadc_lab_ui/dist/static"),
 ]
