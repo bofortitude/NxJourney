@@ -25,7 +25,8 @@ SECRET_KEY = 'f$uq74$)#qr=vl5_@yrr#rke5_rhnfz7a=-n*bzk+sc&u0pkao'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# customized
+ALLOWED_HOSTS = ['10.106.129.10']
 
 
 # Application definition
@@ -77,17 +78,17 @@ WSGI_APPLICATION = 'fortiadc_lab_server.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
+     # 'default': {
+     #     'ENGINE': 'django.db.backends.sqlite3',
+     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+     # }
 
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'app_topo',    # database name
-        'USER': 'root',
-        'PASSWORD': 'fortinet',    # mysql username password
-        'HOST': '10.106.129.11',
+       'ENGINE': 'django.db.backends.mysql',
+       'NAME': 'app_topo',    # database name
+       'USER': 'root',
+       'PASSWORD': 'fortinet',    # mysql username password
+       'HOST': '127.0.0.1',
     }
 }
 
