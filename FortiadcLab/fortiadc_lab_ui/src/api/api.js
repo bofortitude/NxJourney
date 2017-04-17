@@ -20,7 +20,7 @@ export const addUser = params => { return axios.get(`${base}/user/add`, { params
 
 export const getUsTopologyData = params => { return axios.get(`${base}/userdata/uslabtopologydata`, { params: params }); };
 
-export const addTopologyItem = params => { return axios.post(`${base}/userdata/uslabtopologydata`, { params: params }); };
+export const addTopologyItem = params => { return axios.post(`${base}/userdata/uslabtopologydata`, params); };
 
 export const editTopologyItem = (name, params) => { return axios.put(`${base}/userdata/uslabtopologydata/${name}`, { params: params }); };
 

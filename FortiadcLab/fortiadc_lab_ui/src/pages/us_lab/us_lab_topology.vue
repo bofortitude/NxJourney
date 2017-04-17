@@ -279,7 +279,7 @@
               console.log(para)
 
               addTopologyItem(para).then((res) => {
-                // console.log(res.status)
+                console.log(res.status)
                 this.addTopologyItemLoading = false;
                 NProgress.done();
                 this.$notify({
