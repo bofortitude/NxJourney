@@ -251,7 +251,8 @@
             this.editTopologyTableLoading = true
                 NProgress.start();
                 getUsTopologyData().then((res) => {
-                  this.topologyDataTableRaw = res.data.usTopologyData;
+                  // this.topologyDataTableRaw = res.data.usTopologyData;
+                  this.topologyDataTableRaw = res.data;
                   this.editTopologyTableLoading = false
                   NProgress.done();
                 });
@@ -289,7 +290,8 @@
                 this.editTopologyTableLoading = true
                 NProgress.start();
                 getUsTopologyData().then((res) => {
-                  this.topologyDataTableRaw = res.data.usTopologyData;
+                  // this.topologyDataTableRaw = res.data.usTopologyData;
+                  this.topologyDataTableRaw = res.data;
                   this.editTopologyTableLoading = false
                   NProgress.done();
                 });
@@ -320,7 +322,8 @@
                 this.editTopologyTableLoading = true
                 NProgress.start();
                 getUsTopologyData().then((res) => {
-                  this.topologyDataTableRaw = res.data.usTopologyData;
+                  // this.topologyDataTableRaw = res.data.usTopologyData;
+                  this.topologyDataTableRaw = res.data;
                   this.editTopologyTableLoading = false
                   NProgress.done();
                 });
@@ -485,7 +488,8 @@
             // console.log(res)
             console.log(res)
             console.log(res.data)
-            this.topologyDataTableRaw = res.data.usTopologyData;
+            // this.topologyDataTableRaw = res.data.usTopologyData;
+            this.topologyDataTableRaw = res.data;
             this.only_draw_lab_topology(true);
 
           NProgress.done();
