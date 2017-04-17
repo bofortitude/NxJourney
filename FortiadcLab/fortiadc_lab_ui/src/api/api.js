@@ -18,13 +18,13 @@ export const addUser = params => { return axios.get(`${base}/user/add`, { params
 
 // export const getUsTopologySettings = params => { return axios.get(`${base}/userdata/ustopologysettings`, { params: params }); };
 
-export const getUsTopologyData = params => { return axios.get(`${base}/userdata/uslabtopologydata`, { params: params }); };
+export const getUsTopologyData = params => { return axios.get(`${base}/userdata/uslabtopologydata/`, { params: params }); };
 
-export const addTopologyItem = params => { return axios.post(`${base}/userdata/uslabtopologydata`, params); };
+export const addTopologyItem = params => { return axios.post(`${base}/userdata/uslabtopologydata/`, params); };
 
-export const editTopologyItem = (name, params) => { return axios.put(`${base}/userdata/uslabtopologydata/${name}`, { params: params }); };
+export const editTopologyItem = (name, params) => { return axios.put(`${base}/userdata/uslabtopologydata/${name}/`, { params: params }); };
 
-export const deleteTopologyItem = name => { return axios.delete(`${base}/userdata/uslabtopologydata/${name}`); };
+export const deleteTopologyItem = name => { return axios.delete(`${base}/userdata/uslabtopologydata/${name}/`); };
 
 export const getUsLabResourceList = params => { return axios.get(`${base}/userdata/uslabresourceplan/getlist`, { params: params }); };
 
