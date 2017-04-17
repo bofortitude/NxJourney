@@ -25,6 +25,7 @@ from app_topo import views
 
 router = routers.DefaultRouter()
 router.register(r'userdata/uslabtopologydata', views.us_lab_topology_data_viewset)
+router.register(r'userdata/uslabsettingsdata', views.us_lab_settings_viewset)
 
 
 # us_lab_topology_data_view = views.us_lab_topology_data_viewset.as_view({'get': 'list', 'post':'create', 'put':'update'})
