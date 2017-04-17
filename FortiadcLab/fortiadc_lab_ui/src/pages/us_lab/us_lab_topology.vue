@@ -250,7 +250,7 @@
             });
             this.editTopologyTableLoading = true
                 NProgress.start();
-                getUsTopologyData(para).then((res) => {
+                getUsTopologyData().then((res) => {
                   this.topologyDataTableRaw = res.data.usTopologyData;
                   this.editTopologyTableLoading = false
                   NProgress.done();
@@ -288,7 +288,7 @@
                 this.addTopologyItemVisible = false;
                 this.editTopologyTableLoading = true
                 NProgress.start();
-                getUsTopologyData(para).then((res) => {
+                getUsTopologyData().then((res) => {
                   this.topologyDataTableRaw = res.data.usTopologyData;
                   this.editTopologyTableLoading = false
                   NProgress.done();
@@ -306,7 +306,7 @@
               this.editTopologyItemLoading = true;
               NProgress.start();
               let para = Object.assign({}, this.editTopologyItemModel);
-              editTopologyItem(para).then((res) => {
+              editTopologyItem(this.editTopologyItemModel.name, para).then((res) => {
                 this.editTopologyItemLoading = false;
                 NProgress.done();
                 this.$notify({
@@ -319,7 +319,7 @@
                 this.editTopologyItemVisible = false;
                 this.editTopologyTableLoading = true
                 NProgress.start();
-                getUsTopologyData(para).then((res) => {
+                getUsTopologyData().then((res) => {
                   this.topologyDataTableRaw = res.data.usTopologyData;
                   this.editTopologyTableLoading = false
                   NProgress.done();
