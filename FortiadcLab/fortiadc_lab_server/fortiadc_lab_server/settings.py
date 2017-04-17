@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'app_topo',    # customized
+    'rest_framework',  # customized
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "../fortiadc_lab_ui/dist/static"),
 ]
 
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [],
+
+}

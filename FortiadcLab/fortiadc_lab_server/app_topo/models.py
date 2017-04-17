@@ -6,7 +6,7 @@ from django.db import models
 # Create your models here.
 
 class us_lab_topology_data(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True, primary_key=True)
     type = models.CharField(max_length=10)
-    content = models.CharField
+    content = models.TextField()
 
