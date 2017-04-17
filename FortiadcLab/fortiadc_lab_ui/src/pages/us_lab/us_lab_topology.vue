@@ -275,6 +275,8 @@
               this.addTopologyItemLoading = true;
               NProgress.start();
               let para = Object.assign({}, this.addTopologyItemModel);
+              console.log('post data to server, the param is:')
+              console.log(para)
 
               addTopologyItem(para).then((res) => {
                 // console.log(res.status)
