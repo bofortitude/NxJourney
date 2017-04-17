@@ -239,7 +239,9 @@
         }).then(() => {
           this.editTopologyTableLoading = true;
           NProgress.start();
-          let para = { name: row.name };
+          // let para = { name: row.name };
+          console.log(row.name)
+          let para = row.name;
           deleteTopologyItem(para).then((res) => {
             this.editTopologyTableLoading = false;
             NProgress.done();
