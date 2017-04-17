@@ -227,6 +227,7 @@
       },
 
       get_us_lab_settings(){
+        console.log('running the get us lab settings method')
         getUsLabSettings().then((res)=>{
           console.log(res)
         })
