@@ -483,6 +483,8 @@
 
         getUsTopologyData().then((res) => {
             // console.log(res)
+            console.log(res)
+            console.log(res.data)
             this.topologyDataTableRaw = res.data.usTopologyData;
             this.only_draw_lab_topology(true);
 
