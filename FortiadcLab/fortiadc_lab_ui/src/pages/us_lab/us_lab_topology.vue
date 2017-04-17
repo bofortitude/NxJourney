@@ -232,7 +232,7 @@
       handleEdit(index, row){
         this.editTopologyItemVisible = true;
         this.editTopologyItemModel = Object.assign({}, row);
-        console.log(this.editTopologyItemModel)
+
       },
       handleDel(index, row){
         this.$confirm('Are you sure to delete this item?', 'Waning', {

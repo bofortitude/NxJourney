@@ -22,7 +22,7 @@ export const getUsTopologyData = params => { return axios.get(`${base}/userdata/
 
 export const addTopologyItem = params => { return axios.post(`${base}/userdata/uslabtopologydata/`, params); };
 
-export const editTopologyItem = (name, params) => { return axios.put(`${base}/userdata/uslabtopologydata/${name}/`, { params: params }); };
+export const editTopologyItem = (name, params) => { return axios.put(`${base}/userdata/uslabtopologydata/${name}/`, params); };
 
 export const deleteTopologyItem = name => { return axios.delete(`${base}/userdata/uslabtopologydata/${name}/`); };
 
