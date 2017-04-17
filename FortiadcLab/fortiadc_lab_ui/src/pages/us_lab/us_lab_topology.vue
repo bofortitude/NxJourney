@@ -132,7 +132,7 @@
 <script>
   import cytoscape from 'cytoscape';
   import NProgress from 'nprogress';
-  import { getUsTopologyData, addTopologyItem, editTopologyItem, deleteTopologyItem  } from '../../api/api';
+  import { getUsTopologyData, addTopologyItem, editTopologyItem, deleteTopologyItem, getUsLabSettings  } from '../../api/api';
 
   export default {
 
@@ -224,6 +224,12 @@
       click_test_button(){
         this.only_draw_lab_topology(false)
 
+      },
+
+      get_us_lab_settings(){
+        getUsLabSettings().then((res)=>{
+          console.log(res)
+        })
       },
 
       handleCurrentChange: function () {
@@ -518,6 +524,7 @@
       },
     },
     mounted() {
+      this.get_us_lab_settings();
       this.draw_lab_topology();
       this.showTopologyTips();
     }

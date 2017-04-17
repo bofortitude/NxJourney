@@ -26,6 +26,8 @@ export const editTopologyItem = (name, params) => { return axios.put(`${base}/us
 
 export const deleteTopologyItem = name => { return axios.delete(`${base}/userdata/uslabtopologydata/${name}/`); };
 
+export const getUsLabSettings = () => {return axios.get(`${base}/userdata/uslabsettingsdata/`);}
+
 export const getUsLabResourceList = params => { return axios.get(`${base}/userdata/uslabresourceplan/getlist`, { params: params }); };
 
 export const addUsLabResourceRecord = params => { return axios.get(`${base}/userdata/uslabresourceplan/addrecord`, { params: params }); };
