@@ -234,10 +234,15 @@
           for (let num in res){
             let item = res[num];
             if (item.hasOwnProperty('vcenter_url')){
-              this.vcenterUrl = this.item['vcenter_url']
+              console.log('vcenter_url is :')
+              console.log(item['vcenter_url'])
+
+              this.vcenterUrl = item['vcenter_url']
             }
 
             if (item.hasOwnProperty('vcenter_username')){
+              console.log('vcenter username is:')
+              console.log(item['vcenter_username'])
               this.vcenterUsername = item['vcenter_username']
             }
 
@@ -251,6 +256,7 @@
 
 
           }
+
           NProgress.done();
         })
       },
