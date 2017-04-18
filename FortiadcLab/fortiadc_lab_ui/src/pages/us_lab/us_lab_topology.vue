@@ -230,35 +230,35 @@
       get_us_lab_settings(){
         console.log('running the get us lab settings method')
         // NProgress.start();
-        // getUsLabSettings().then((res)=>{
-        //   console.log('the us lab settings response is:')
-        //   console.log(res)
-        //   for (let num in res){
-        //     let item = res[num];
-        //     if (item.hasOwnProperty('vcenter_url')){
-        //       console.log('vcenter_url is :')
-        //       console.log(item['vcenter_url'])
+        getUsLabSettings().then((res)=>{
+          console.log('the us lab settings response is:')
+          console.log(res)
+          for (let num in res){
+            let item = res[num];
+            if (item.hasOwnProperty('vcenter_url')){
+              console.log('vcenter_url is :')
+              console.log(item['vcenter_url'])
 
-        //       this.vcenterUrl = item['vcenter_url']
-        //     }
+              this.vcenterUrl = item['vcenter_url']
+            }
 
-        //     if (item.hasOwnProperty('vcenter_username')){
-        //       console.log('vcenter username is:')
-        //       console.log(item['vcenter_username'])
-        //       this.vcenterUsername = item['vcenter_username']
-        //     }
+            if (item.hasOwnProperty('vcenter_username')){
+              console.log('vcenter username is:')
+              console.log(item['vcenter_username'])
+              this.vcenterUsername = item['vcenter_username']
+            }
 
-        //     if (item.hasOwnProperty('vcenter_password')){
-        //       this.vcenterPassword = item['vcenter_password']
-        //     }
+            if (item.hasOwnProperty('vcenter_password')){
+              this.vcenterPassword = item['vcenter_password']
+            }
 
-        //     if (item.hasOwnProperty('yongsheng_team_resource_link')){
-        //       this.yongshengTeamResourceLink = item['yongsheng_team_resource_link']
-        //     }
-        //   }
+            if (item.hasOwnProperty('yongsheng_team_resource_link')){
+              this.yongshengTeamResourceLink = item['yongsheng_team_resource_link']
+            }
+          }
 
-        //   // NProgress.done();
-        // })
+          // NProgress.done();
+        })
       },
 
       handleCurrentChange: function () {
