@@ -229,15 +229,10 @@
 
       get_us_lab_settings(){
 
-        // NProgress.start();
+        NProgress.start();
         getUsLabSettings().then((res)=>{
-          console.log('get us lab settings response:')
-          console.log(res['data'])
-
           for (let num in res['data']){
             let item = res['data'][num];
-            console.log(item)
-
 
             if (item['key'] === 'vcenter_url'){
               this.vcenterUrl = item['value']
@@ -248,10 +243,9 @@
             } else if (item['key'] === 'yongsheng_team_resource_link'){
               this.yongshengTeamResourceLink = item['value']
             }
-
           }
 
-          // NProgress.done();
+          NProgress.done();
         })
       },
 
