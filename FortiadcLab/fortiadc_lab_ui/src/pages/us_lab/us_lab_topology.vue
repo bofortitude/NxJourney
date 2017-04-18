@@ -6,7 +6,7 @@
             <div id = 'tool_panel' class="toolbar">
                 <el-button type="primary" @click='refresh_method' >Refresh</el-button>
                 <el-button type="primary" @click='click_vcenter_button' >vCenter</el-button>
-                <el-button type="primary" @click='click_test_button' >Test Button</el-button>
+                <el-button type="primary" @click='click_ys_button' >Yongsheng Team Resource</el-button>
             </div>
             <div id="us_lab_topology" v-loading.body="loading"></div>
 
@@ -141,10 +141,12 @@
         activeName2: 'tab_topology',
         cy: 'cy string',
         loading: false,
-        vcenterUrl: 'https://10.106.4.246',
-        vcenterUsername: 'administrator@adcvcenter.com',
-        vcenterPassword: 'Fortinet2017,.',
+        vcenterUrl: '',
+        vcenterUsername: '',
+        vcenterPassword: '',
         vcenterDialogVisible: false,
+
+        yongshengTeamResourceLink: '',
 
         editTopologyTableLoading: false,
         editTopologyTotalPages: 0,
@@ -221,15 +223,35 @@
     },
 
     methods: {
-      click_test_button(){
-        this.only_draw_lab_topology(false)
-
+      click_ys_button(){
+        window.open(this.yongshengTeamResourceLink,'_blank');
       },
 
       get_us_lab_settings(){
-        console.log('running the get us lab settings method')
+        // console.log('running the get us lab settings method')
+        NProgress.start();
         getUsLabSettings().then((res)=>{
-          console.log(res)
+          for (let num in res){
+            let item = res[num];
+            if (item.hasOwnProperty('vcenter_url')){
+              this.vcenterUrl = this.item['vcenter_url']
+            }
+
+            if (item.hasOwnProperty('vcenter_username')){
+              this.vcenterUsername = item['vcenter_username']
+            }
+
+            if (item.hasOwnProperty('vcenter_password')){
+              this.vcenterPassword = item['vcenter_password']
+            }
+
+            if (item.hasOwnProperty('yongsheng_team_resource_link')){
+              this.yongshengTeamResourceLink = item['yongsheng_team_resource_link']
+            }
+
+
+          }
+          NProgress.done();
         })
       },
 
