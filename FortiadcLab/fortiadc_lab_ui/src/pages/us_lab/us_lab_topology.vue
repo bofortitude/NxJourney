@@ -232,30 +232,19 @@
         // NProgress.start();
         getUsLabSettings().then((res)=>{
           console.log('get us lab settings response:')
-          console.log(res['data'])
-          for (let num in object_array){
+          for (let num in res['data']){
             let item = res[num];
-            console.log(item)
-            if (item.hasOwnProperty('vcenter_url')){
-              console.log('vcenter_url is :')
-              console.log(item['vcenter_url'])
 
-              this.vcenterUrl = item['vcenter_url']
+            if (item['key'] === 'vcenter_url'){
+              this.vcenterUrl = item['value']
+            } else if ( item['key'] === 'vcenter_username'){
+              this.vcenterUsername = item['value']
+            } else if ( item['key'] === 'vcenter_password'){
+              this.vcenterPassword = item['value']
+            } else if (item['key'] === 'yongsheng_team_resource_link'){
+              this.yongshengTeamResourceLink = item['value']
             }
 
-            if (item.hasOwnProperty('vcenter_username')){
-              console.log('vcenter username is:')
-              console.log(item['vcenter_username'])
-              this.vcenterUsername = item['vcenter_username']
-            }
-
-            if (item.hasOwnProperty('vcenter_password')){
-              this.vcenterPassword = item['vcenter_password']
-            }
-
-            if (item.hasOwnProperty('yongsheng_team_resource_link')){
-              this.yongshengTeamResourceLink = item['yongsheng_team_resource_link']
-            }
           }
 
           // NProgress.done();
