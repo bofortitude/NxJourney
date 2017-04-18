@@ -235,6 +235,7 @@
           console.log(res)
           for (let num in res){
             let item = res[num];
+            console.log(item)
             if (item.hasOwnProperty('vcenter_url')){
               console.log('vcenter_url is :')
               console.log(item['vcenter_url'])
