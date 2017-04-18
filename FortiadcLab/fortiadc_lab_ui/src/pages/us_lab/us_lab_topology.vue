@@ -228,11 +228,10 @@
       },
 
       get_us_lab_settings(){
-        console.log('running the get us lab settings method')
+
         // NProgress.start();
         getUsLabSettings().then((res)=>{
-          console.log('the us lab settings response is:')
-          console.log(res)
+          console.log('get us lab settings response:')
           for (let num in res){
             let item = res[num];
             console.log(item)
