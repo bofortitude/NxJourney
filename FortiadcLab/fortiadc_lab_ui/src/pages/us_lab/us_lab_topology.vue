@@ -232,8 +232,12 @@
         // NProgress.start();
         getUsLabSettings().then((res)=>{
           console.log('get us lab settings response:')
+          console.log(res['data'])
+
           for (let num in res['data']){
-            let item = res[num];
+            let item = res['data'][num];
+            console.log(item)
+
 
             if (item['key'] === 'vcenter_url'){
               this.vcenterUrl = item['value']
