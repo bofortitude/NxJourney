@@ -228,7 +228,7 @@
       },
 
       get_us_lab_settings(){
-        // console.log('running the get us lab settings method')
+        console.log('running the get us lab settings method')
         NProgress.start();
         getUsLabSettings().then((res)=>{
           console.log('the us lab settings response is:')
