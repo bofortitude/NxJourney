@@ -232,11 +232,7 @@
         // NProgress.start();
         getUsLabSettings().then((res)=>{
           console.log('get us lab settings response:')
-          console.log(res)
-          let object_array = res[0]
-          console.log('==================')
-          console.log(res[1])
-          console.log(object_array)
+          console.log(res['data'])
           for (let num in object_array){
             let item = res[num];
             console.log(item)
