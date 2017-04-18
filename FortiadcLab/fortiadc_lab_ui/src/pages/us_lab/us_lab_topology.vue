@@ -233,6 +233,7 @@
         getUsLabSettings().then((res)=>{
           console.log('get us lab settings response:')
           let object_array = res[0]
+          console.log(object_array)
           for (let num in object_array){
             let item = res[num];
             console.log(item)
