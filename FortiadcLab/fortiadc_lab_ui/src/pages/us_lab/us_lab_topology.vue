@@ -232,7 +232,8 @@
         // NProgress.start();
         getUsLabSettings().then((res)=>{
           console.log('get us lab settings response:')
-          for (let num in res){
+          let object_array = res[0]
+          for (let num in object_array){
             let item = res[num];
             console.log(item)
             if (item.hasOwnProperty('vcenter_url')){
