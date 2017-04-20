@@ -370,9 +370,10 @@
                     this.listLoading = true;
                     NProgress.start();
                     // let para = { id: row.id };
-                    console.log(index)
                     let para = row.id;
                     removeUsLabResourceRecord(para).then((res) => {
+                        console.log('debug resource response:')
+                        console.log(res)
                         this.listLoading = false;
                         NProgress.done();
                         this.$notify({
@@ -383,7 +384,6 @@
                         this.getUsers();
                     });
                 }).catch(() => {
-                    console.log('error occurs......')
 
                 });
             },
