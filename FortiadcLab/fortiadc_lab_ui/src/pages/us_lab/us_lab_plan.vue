@@ -401,6 +401,7 @@
                             NProgress.start();
                             console.log('before edit debug--->')
                             console.log(this.editForm)
+                            console.log(this.editForm.id)
                             let para = Object.assign({}, this.editForm);
                             console.log('edit:')
                             console.log(para)
