@@ -399,13 +399,8 @@
                         this.$confirm('Are you sure to submit?', 'Edit', {}).then(() => {
                             this.editLoading = true;
                             NProgress.start();
-                            console.log('before edit debug--->')
-                            console.log(this.editForm)
-                            console.log(this.editForm.id)
                             let para = Object.assign({}, this.editForm);
-                            console.log('edit:')
-                            console.log(para)
-                            editUsLabResourceRecord(para).then((res) => {
+                            editUsLabResourceRecord(para.id, para).then((res) => {
                                 this.editLoading = false;
                                 NProgress.done();
                                 this.$notify({
