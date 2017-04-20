@@ -383,9 +383,15 @@
             //显示编辑界面
             handleEdit: function (index, row) {
                 this.editFormVisible = true;
-                console.log('getting edit form debug:')
-                console.log(row)
-                this.editForm = Object.assign({}, row);
+                let myRow = ''
+                for (let num in this.table_data_raw){
+                    if (this.table_data_raw[num]['id'] == row.id){
+                        myRow = this.table_data_raw[num]
+                    }
+
+                }
+
+                this.editForm = Object.assign({}, myRow);
 
                 console.log(this.editForm)
             },
