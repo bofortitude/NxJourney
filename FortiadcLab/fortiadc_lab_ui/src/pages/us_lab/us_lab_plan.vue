@@ -82,29 +82,29 @@
                 </el-form-item>
                 <el-form-item label="HA ID">
                     <el-col :span="7">
-                        <el-input-number v-model="editForm.minHaId" :min="1" :max="32"></el-input-number>
+                        <el-input-number v-model="editForm.minHaId" :min="0" :max="32"></el-input-number>
                     </el-col>
                     <el-col class="line" :span="2">to</el-col>
                     <el-col :span="7">
-                        <el-input-number v-model="editForm.maxHaId" :min="1" :max="32"></el-input-number>
+                        <el-input-number v-model="editForm.maxHaId" :min="0" :max="32"></el-input-number>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="VLAN">
                     <el-col :span="7">
-                        <el-input-number v-model="editForm.minVlan" :min="1" :max="4095"></el-input-number>
+                        <el-input-number v-model="editForm.minVlan" :min="0" :max="4095"></el-input-number>
                     </el-col>
                     <el-col class="line" :span="2">to</el-col>
                     <el-col :span="7">
-                        <el-input-number v-model="editForm.maxVlan" :min="1" :max="4095"></el-input-number>
+                        <el-input-number v-model="editForm.maxVlan" :min="0" :max="4095"></el-input-number>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="OSPF ID">
                     <el-col :span="7">
-                        <el-input-number v-model="editForm.minOspfId" :min="1" :max="4095"></el-input-number>
+                        <el-input-number v-model="editForm.minOspfId" :min="0" :max="4095"></el-input-number>
                     </el-col>
                     <el-col class="line" :span="2">to</el-col>
                     <el-col :span="7">
-                        <el-input-number v-model="editForm.maxOspfId" :min="1" :max="4095"></el-input-number>
+                        <el-input-number v-model="editForm.maxOspfId" :min="0" :max="4095"></el-input-number>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="Description">
@@ -139,36 +139,36 @@
                     </el-col>
                 </el-form-item>
                 <el-form-item label="Prefix">
-                    <el-input-number v-model="addForm.ip_prefix" :min="1" :max="128"></el-input-number>
+                    <el-input-number v-model="addForm.ip_prefix" :min="0" :max="128"></el-input-number>
                 </el-form-item>
                 <el-form-item label="Gateway">
                     <el-input v-model="addForm.gateway" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="HA ID">
                     <el-col :span="7">
-                        <el-input-number v-model="addForm.minHaId" :min="1" :max="32"></el-input-number>
+                        <el-input-number v-model="addForm.minHaId" :min="0" :max="32"></el-input-number>
                     </el-col>
                     <el-col class="line" :span="2">to</el-col>
                     <el-col :span="7">
-                        <el-input-number v-model="addForm.maxHaId" :min="1" :max="32"></el-input-number>
+                        <el-input-number v-model="addForm.maxHaId" :min="0" :max="32"></el-input-number>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="VLAN">
                     <el-col :span="7">
-                        <el-input-number v-model="addForm.minVlan" :min="1" :max="4095"></el-input-number>
+                        <el-input-number v-model="addForm.minVlan" :min="0" :max="4095"></el-input-number>
                     </el-col>
                     <el-col class="line" :span="2">to</el-col>
                     <el-col :span="7">
-                        <el-input-number v-model="addForm.maxVlan" :min="1" :max="4095"></el-input-number>
+                        <el-input-number v-model="addForm.maxVlan" :min="0" :max="4095"></el-input-number>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="OSPF ID">
                     <el-col :span="7">
-                        <el-input-number v-model="addForm.minOspfId" :min="1" :max="4095"></el-input-number>
+                        <el-input-number v-model="addForm.minOspfId" :min="0" :max="4095"></el-input-number>
                     </el-col>
                     <el-col class="line" :span="2">to</el-col>
                     <el-col :span="7">
-                        <el-input-number v-model="addForm.maxOspfId" :min="1" :max="4095"></el-input-number>
+                        <el-input-number v-model="addForm.maxOspfId" :min="0" :max="4095"></el-input-number>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="Description">
@@ -295,13 +295,16 @@
                     let minOspfIdString = ''
                     let maxOspfIdString = ''
 
+                    console.log('debug ---->')
+                    console.log(currentItem['minVlan'] != 0)
+
                     if (currentItem['minIp'] != null){
                         minIpString = currentItem['minIp']
                     }
                     if (currentItem['maxIp'] != null){
                         maxIpString = currentItem['maxIp']
                     }
-                    if (currentItem['minVlan'] != null){
+                    if (currentItem['minVlan'] != null && currentItem['minVlan'] != 0){
                         minVlanString = currentItem['minVlan']
                     }
                     if (currentItem['maxVlan'] != null){
