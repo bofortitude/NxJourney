@@ -348,6 +348,8 @@
                 //     page_size: this.table_page_size
                 // };
                 let para = ''
+                console.log('get user debug ......')
+                console.log(this.filters.name)
                 if (this.filters.name != ''){
                     para = para+this.filters.name+'&'
                 }
