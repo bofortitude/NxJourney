@@ -53,7 +53,7 @@
         <!--工具条-->
 
         <!-- <div :span="24" class="toolbar"> -->
-        <div :span="24" class="toolbar">
+        <div :span="24" >
             <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
             <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size='table_page_size' :total="total" style="float:right;">
             </el-pagination>
@@ -364,7 +364,8 @@
                 }).then(() => {
                     this.listLoading = true;
                     NProgress.start();
-                    let para = { id: row.id };
+                    // let para = { id: row.id };
+                    let para = row.id;
                     removeUsLabResourceRecord(para).then((res) => {
                         this.listLoading = false;
                         NProgress.done();
@@ -399,6 +400,8 @@
                             this.editLoading = true;
                             NProgress.start();
                             let para = Object.assign({}, this.editForm);
+                            console.log('edit:')
+                            console.log(para)
                             editUsLabResourceRecord(para).then((res) => {
                                 this.editLoading = false;
                                 NProgress.done();
@@ -423,6 +426,8 @@
                             this.addLoading = true;
                             NProgress.start();
                             let para = Object.assign({}, this.addForm);
+                            console.log('add debug:')
+                            console.log(para)
                             addUsLabResourceRecord(para).then((res) => {
                                 this.addLoading = false;
                                 NProgress.done();
