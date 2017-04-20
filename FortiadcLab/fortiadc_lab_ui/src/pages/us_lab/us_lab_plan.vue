@@ -372,21 +372,15 @@
                     // let para = { id: row.id };
                     let para = row.id;
                     removeUsLabResourceRecord(para).then((res) => {
-                        console.log('debug resource response:')
-                        console.log(res)
+                        console.log('current content debug --------->')
+                        console.log(this.table_data_raw)
+
                         this.listLoading = false;
                         NProgress.done();
                         this.$notify({
                             title: 'Success',
                             message: 'Delete success!',
                             type: 'success'
-                        })
-                        .catch(function (error) {
-                            if (error.response) {
-                              console.log(error.response.data);
-                              console.log(error.response.status);
-                              console.log(error.response.headers);
-                            }
                         });
                         this.getUsers();
                     });
