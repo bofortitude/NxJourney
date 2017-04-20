@@ -399,6 +399,8 @@
                         this.$confirm('Are you sure to submit?', 'Edit', {}).then(() => {
                             this.editLoading = true;
                             NProgress.start();
+                            console.log('before edit debug--->')
+                            console.log(this.editForm)
                             let para = Object.assign({}, this.editForm);
                             console.log('edit:')
                             console.log(para)
