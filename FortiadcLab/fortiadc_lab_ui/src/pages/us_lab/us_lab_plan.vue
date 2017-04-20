@@ -370,6 +370,7 @@
                     this.listLoading = true;
                     NProgress.start();
                     // let para = { id: row.id };
+                    console.log(index)
                     let para = row.id;
                     removeUsLabResourceRecord(para).then((res) => {
                         this.listLoading = false;
