@@ -373,7 +373,8 @@
                     let para = row.id;
                     removeUsLabResourceRecord(para).then((res) => {
                         console.log('current content debug --------->')
-                        console.log(this.table_data_raw)
+                        console.log(this.table_data_raw.length)
+                        console.log(this.total)
 
                         this.listLoading = false;
                         NProgress.done();
