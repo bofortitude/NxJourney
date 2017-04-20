@@ -53,7 +53,8 @@
         <!--工具条-->
 
         <!-- <div :span="24" class="toolbar"> -->
-        <div :span="24" >
+        <!-- <div :span="24" > -->
+        <div :span="24" class="toolbar" style="padding-bottom: 0px;">
             <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
             <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size='table_page_size' :total="total" style="float:right;">
             </el-pagination>
@@ -75,7 +76,7 @@
                     </el-col>
                 </el-form-item>
                 <el-form-item label="Prefix">
-                    <el-input-number v-model="editForm.ip_prefix" :min="1" :max="128"></el-input-number>
+                    <el-input-number v-model="editForm.ip_prefix" :min="0" :max="128"></el-input-number>
                 </el-form-item>
                 <el-form-item label="Gateway">
                     <el-input v-model="editForm.gateway" auto-complete="off"></el-input>
