@@ -319,7 +319,7 @@
                 //     name: this.filters.name,
                 //     page_size: this.table_page_size
                 // };
-                para = ''
+                let para = ''
                 if (this.filters.name != ''){
                     para = para+this.filters.name+'&'
                 }
