@@ -380,15 +380,11 @@
                             title: 'Success',
                             message: 'Delete success!',
                             type: 'success'
+                        })
+                        .catch(function (error) {
+                            console.log(error);
                         });
                         this.getUsers();
-                    }).catch(function (error) {
-                        // body...
-                          if (error.response) {
-                            console.log(error.response.data);
-                            console.log(error.response.status);
-                            console.log(error.response.headers);
-
                     });
                 }).catch(() => {
 
