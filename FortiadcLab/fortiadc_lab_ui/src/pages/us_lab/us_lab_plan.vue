@@ -295,9 +295,6 @@
                     let minOspfIdString = ''
                     let maxOspfIdString = ''
 
-                    console.log('debug ---->')
-                    console.log(currentItem['minVlan'] != 0)
-
                     if (currentItem['minIp'] != null){
                         minIpString = currentItem['minIp']
                     }
@@ -307,19 +304,19 @@
                     if (currentItem['minVlan'] != null && currentItem['minVlan'] != 0){
                         minVlanString = currentItem['minVlan']
                     }
-                    if (currentItem['maxVlan'] != null){
+                    if (currentItem['maxVlan'] != null && currentItem['maxVlan'] != 0){
                         maxVlanString = currentItem['maxVlan']
                     }
-                    if (currentItem['minHaId'] != null){
+                    if (currentItem['minHaId'] != null && currentItem['minHaId'] != 0){
                         minHaIdString = currentItem['minHaId']
                     }
-                    if (currentItem['maxHaId'] != null){
+                    if (currentItem['maxHaId'] != null && currentItem['maxHaId'] !=0 ){
                         maxHaIdString = currentItem['maxHaId']
                     }
-                    if (currentItem['minOspfId'] != null){
+                    if (currentItem['minOspfId'] != null && currentItem['minOspfId'] != 0){
                         minOspfIdString = currentItem['minOspfId']
                     }
-                    if (currentItem['maxOspfId'] != null){
+                    if (currentItem['maxOspfId'] != null && currentItem['maxOspfId'] != 0){
                         maxOspfIdString = currentItem['maxOspfId']
                     }
 
