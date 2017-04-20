@@ -194,7 +194,6 @@
 <script>
     import util from '../../common/js/util'
     import NProgress from 'nprogress'
-    // import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
     import { getUsLabResourceList, addUsLabResourceRecord, removeUsLabResourceRecord, editUsLabResourceRecord } from '../../api/api';
 
     export default {
@@ -286,6 +285,8 @@
                     let itemObj = {}
                     itemObj['id'] = currentItem['id']
                     itemObj['name'] = currentItem['name']
+                    console.log('debug info=================>')
+                    console.log(currentItem['minIp'] == null)
                     if (currentItem.hasOwnProperty('minIp') && currentItem.hasOwnProperty('maxIp')){
                         itemObj['ip'] = currentItem['minIp']+'-'+currentItem['maxIp']
                     }
