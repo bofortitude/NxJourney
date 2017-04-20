@@ -372,9 +372,6 @@
                     // let para = { id: row.id };
                     let para = row.id;
                     removeUsLabResourceRecord(para).then((res) => {
-                        console.log('current content debug --------->')
-                        console.log(this.table_data_raw.length)
-                        console.log(this.total)
 
                         this.listLoading = false;
                         NProgress.done();
@@ -383,6 +380,13 @@
                             message: 'Delete success!',
                             type: 'success'
                         });
+                        if (this.table_data_raw.length == 1 && this.total == 1){
+                            console.log('last item removed')
+                        } else {
+                            if (this.table_data_raw.length == 1 ){
+                                this.page = this.page-1;
+                            }
+                        }
                         this.getUsers();
                     });
                 }).catch(() => {
