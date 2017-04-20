@@ -52,6 +52,7 @@
 
         <!--工具条-->
 
+        <!-- <div :span="24" class="toolbar"> -->
         <div :span="24" class="toolbar">
             <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
             <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size='table_page_size' :total="total" style="float:right;">
