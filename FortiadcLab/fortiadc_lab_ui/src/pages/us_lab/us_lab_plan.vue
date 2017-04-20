@@ -285,29 +285,50 @@
                     let itemObj = {}
                     itemObj['id'] = currentItem['id']
                     itemObj['name'] = currentItem['name']
-                    console.log('debug info=================>')
-                    console.log(currentItem['minIp'] == null)
-                    if (currentItem.hasOwnProperty('minIp') && currentItem.hasOwnProperty('maxIp')){
-                        itemObj['ip'] = currentItem['minIp']+'-'+currentItem['maxIp']
+
+                    let minIpString = ''
+                    let maxIpString = ''
+                    let minVlanString = ''
+                    let maxVlanString = ''
+                    let minHaIdString = ''
+                    let maxHaIdString = ''
+                    let minOspfIdString = ''
+                    let maxOspfIdString = ''
+
+                    if (currentItem['minIp'] != null){
+                        minIpString = currentItem['minIp']
                     }
-                    if (currentItem.hasOwnProperty('ip_prefix')){
-                        itemObj['ip_prefix'] = currentItem['ip_prefix']
+                    if (currentItem['maxIp'] != null){
+                        maxIpString = currentItem['maxIp']
                     }
-                    if (currentItem.hasOwnProperty('gateway')){
-                        itemObj['gateway'] = currentItem['gateway']
+                    if (currentItem['minVlan'] != null){
+                        minVlanString = currentItem['minVlan']
                     }
-                    if (currentItem.hasOwnProperty('minVlan') && currentItem.hasOwnProperty('maxVlan')){
-                        itemObj['vlan'] = currentItem['minVlan']+'-'+currentItem['maxVlan']
+                    if (currentItem['maxVlan'] != null){
+                        maxVlanString = currentItem['maxVlan']
                     }
-                    if (currentItem.hasOwnProperty('minOspfId') && currentItem.hasOwnProperty('maxOspfId')){
-                        itemObj['ospf_area_id'] = currentItem['minOspfId']+'-'+currentItem['maxOspfId']
+                    if (currentItem['minHaId'] != null){
+                        minHaIdString = currentItem['minHaId']
                     }
-                    if (currentItem.hasOwnProperty('minHaId') && currentItem.hasOwnProperty('maxHaId')){
-                        itemObj['ha_id'] = currentItem['minHaId']+'-'+currentItem['maxHaId']
+                    if (currentItem['maxHaId'] != null){
+                        maxHaIdString = currentItem['maxHaId']
                     }
-                    if (currentItem.hasOwnProperty('description')){
-                        itemObj['description'] = currentItem['description']
+                    if (currentItem['minOspfId'] != null){
+                        minOspfIdString = currentItem['minOspfId']
                     }
+                    if (currentItem['maxOspfId'] != null){
+                        maxOspfIdString = currentItem['maxOspfId']
+                    }
+
+                    itemObj['ip'] = minIpString+'-'+maxIpString
+                    itemObj['ip_prefix'] = currentItem['ip_prefix']
+                    itemObj['gateway'] = currentItem['gateway']
+                    itemObj['vlan'] = minVlanString+'-'+maxVlanString
+                    itemObj['ospf_area_id'] = minOspfIdString+'-'+maxOspfIdString
+                    itemObj['ha_id'] = minHaIdString+'-'+maxHaIdString
+                    itemObj['description'] = currentItem['description']
+
+
                     new_table_data.push(itemObj)
                 }
 
