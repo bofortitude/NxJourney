@@ -382,6 +382,13 @@
                             type: 'success'
                         });
                         this.getUsers();
+                    }).catch(function (error) {
+                        // body...
+                          if (error.response) {
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
+
                     });
                 }).catch(() => {
 
