@@ -28,15 +28,15 @@ export const deleteTopologyItem = name => { return axios.delete(`${base}/userdat
 
 export const getUsLabSettings = () => {return axios.get(`${base}/userdata/uslabsettingsdata/`);}
 
-export const getUsLabResourceList = params => { return axios.get(`${base}/userdata/uslabresourceplan/getlist`, { params: params }); };
+export const getUsLabResourceList = params => { return axios.get(`${base}/userdata/uslabresourceplandata/?${params}`); };
 
-export const addUsLabResourceRecord = params => { return axios.get(`${base}/userdata/uslabresourceplan/addrecord`, { params: params }); };
+export const addUsLabResourceRecord = params => { return axios.post(`${base}/userdata/uslabresourceplandata/`, params ); };
 
-export const removeUsLabResourceRecord = params => { return axios.get(`${base}/userdata/uslabresourceplan/removerecord`, { params: params }); };
+export const removeUsLabResourceRecord = id => { return axios.delete(`${base}/userdata/uslabresourceplandata/${id}/`); };
 
-export const batchRemoveUsLabResourceRecord = params => { return axios.get(`${base}/userdata/uslabresourceplan/batchremoverecord`, { params: params }); };
+// export const batchRemoveUsLabResourceRecord = params => { return axios.get(`${base}/userdata/uslabresourceplan/batchremoverecord`, { params: params }); };
 
-export const editUsLabResourceRecord = params => { return axios.get(`${base}/userdata/uslabresourceplan/editrecord`, { params: params }); };
+export const editUsLabResourceRecord = (id, params) => { return axios.put(`${base}/userdata/uslabresourceplandata/${id}/`, params ); };
 
 
 

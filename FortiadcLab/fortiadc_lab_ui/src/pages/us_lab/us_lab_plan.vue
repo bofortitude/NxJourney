@@ -22,8 +22,8 @@
 
 
         <el-table stripe border :data="table_data" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
-            <el-table-column type="selection" width="55">
-            </el-table-column>
+            <!-- <el-table-column type="selection" width="55">
+            </el-table-column> -->
             <!-- <el-table-column type="index" width="60">
             </el-table-column> -->
             <el-table-column prop="name" label="Name" width="120" sortable fit>
@@ -53,7 +53,7 @@
         <!--工具条-->
 
         <div :span="24" class="toolbar">
-            <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button>
+            <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
             <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size='table_page_size' :total="total" style="float:right;">
             </el-pagination>
         </div>
@@ -194,7 +194,7 @@
     import util from '../../common/js/util'
     import NProgress from 'nprogress'
     // import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
-    import { getUsLabResourceList, addUsLabResourceRecord, removeUsLabResourceRecord, batchRemoveUsLabResourceRecord, editUsLabResourceRecord } from '../../api/api';
+    import { getUsLabResourceList, addUsLabResourceRecord, removeUsLabResourceRecord, editUsLabResourceRecord } from '../../api/api';
 
     export default {
         data() {
@@ -314,16 +314,21 @@
             },
             //获取用户列表
             getUsers() {
-                let para = {
-                    page: this.page,
-                    name: this.filters.name,
-                    page_size: this.table_page_size
-                };
+                // let para = {
+                //     page: this.page,
+                //     name: this.filters.name,
+                //     page_size: this.table_page_size
+                // };
+                para = ''
+                if (this.filters.name != ''){
+                    para = para+this.filters.name+'&'
+                }
+                para = para+'page_size='+this.table_page_size+'&page='+this.page
                 this.listLoading = true;
                 NProgress.start();
                 getUsLabResourceList(para).then((res) => {
-                    this.total = res.data.total;
-                    this.table_data_raw = res.data.table_data;
+                    this.total = res.data.count;
+                    this.table_data_raw = res.data.results;
                     this.transformTableDataRawToFormal();
                     this.listLoading = false;
                     NProgress.done();
@@ -415,28 +420,28 @@
                 this.sels = sels;
             },
             //批量删除
-            batchRemove: function () {
-                var ids = this.sels.map(item => item.id).toString();
-                this.$confirm('Are you sure to delete selected items?', 'Warning', {
-                    type: 'warning'
-                }).then(() => {
-                    this.listLoading = true;
-                    NProgress.start();
-                    let para = { ids: ids };
-                    batchRemoveUsLabResourceRecord(para).then((res) => {
-                        this.listLoading = false;
-                        NProgress.done();
-                        this.$notify({
-                            title: 'Success',
-                            message: 'Delete successfully!',
-                            type: 'success'
-                        });
-                        this.getUsers();
-                    });
-                }).catch(() => {
+            // batchRemove: function () {
+            //     var ids = this.sels.map(item => item.id).toString();
+            //     this.$confirm('Are you sure to delete selected items?', 'Warning', {
+            //         type: 'warning'
+            //     }).then(() => {
+            //         this.listLoading = true;
+            //         NProgress.start();
+            //         let para = { ids: ids };
+            //         batchRemoveUsLabResourceRecord(para).then((res) => {
+            //             this.listLoading = false;
+            //             NProgress.done();
+            //             this.$notify({
+            //                 title: 'Success',
+            //                 message: 'Delete successfully!',
+            //                 type: 'success'
+            //             });
+            //             this.getUsers();
+            //         });
+            //     }).catch(() => {
 
-                });
-            }
+            //     });
+            // }
         },
         mounted() {
             this.getUsers();
