@@ -286,6 +286,7 @@
                     itemObj['id'] = currentItem['id']
                     itemObj['name'] = currentItem['name']
 
+                    let prefixString = ''
                     let minIpString = ''
                     let maxIpString = ''
                     let minVlanString = ''
@@ -295,6 +296,9 @@
                     let minOspfIdString = ''
                     let maxOspfIdString = ''
 
+                    if (currentItem['ip_prefix'] != null && currentItem['ip_prefix'] != 0){
+                        prefixString = currentItem['ip_prefix']
+                    }
                     if (currentItem['minIp'] != null){
                         minIpString = currentItem['minIp']
                     }
@@ -321,7 +325,7 @@
                     }
 
                     itemObj['ip'] = minIpString+'-'+maxIpString
-                    itemObj['ip_prefix'] = currentItem['ip_prefix']
+                    itemObj['ip_prefix'] = prefixString
                     itemObj['gateway'] = currentItem['gateway']
                     itemObj['vlan'] = minVlanString+'-'+maxVlanString
                     itemObj['ospf_area_id'] = minOspfIdString+'-'+maxOspfIdString
