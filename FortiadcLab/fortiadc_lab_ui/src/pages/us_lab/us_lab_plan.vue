@@ -356,6 +356,7 @@
                     para = para+this.filters.name+'&'
                     console.log(para)
                 }
+                console.log(para)
                 para = para+'page_size='+this.table_page_size+'&page='+this.page
                 this.listLoading = true;
                 NProgress.start();
