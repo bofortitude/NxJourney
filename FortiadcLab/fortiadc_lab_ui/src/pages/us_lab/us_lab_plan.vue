@@ -354,6 +354,7 @@
                 console.log(this.filters.name != "")
                 if (this.filters.name != ''){
                     para = para+this.filters.name+'&'
+                    console.log(para)
                 }
                 para = para+'page_size='+this.table_page_size+'&page='+this.page
                 this.listLoading = true;
