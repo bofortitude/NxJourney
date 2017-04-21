@@ -14,9 +14,10 @@
                     <el-button type="primary" @click="handleAdd">New</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="handleRefresh" type="success" style="float:right;" >Refresh</el-button>
+                    <!-- <el-button type="primary" @click="handleRefresh" type="success" style="float:right;" >Refresh</el-button> -->
                 </el-form-item>
             </el-form>
+            <el-button type="primary" @click="handleRefresh" type="success" style="float:right;" >Refresh</el-button>
         </div>
         <!-- </el-col> -->
 
