@@ -235,7 +235,7 @@
                 ],
                 total: 0,
                 page: 1,
-                table_page_size:3,
+                table_page_size:50,
                 listLoading: false,
                 sels: [],//列表选中列
 
