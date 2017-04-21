@@ -7,8 +7,10 @@ from django.contrib import admin
 
 from models import us_lab_topology_data
 from models import us_lab_settings_data
+from models import us_lab_resource_plan_data
 
 admin.site.register(us_lab_topology_data)
 admin.site.register(us_lab_settings_data)
+admin.site.register(us_lab_resource_plan_data)
 
 

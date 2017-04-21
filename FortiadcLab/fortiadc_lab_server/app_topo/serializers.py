@@ -1,6 +1,7 @@
 
 from models import us_lab_topology_data
 from models import us_lab_settings_data
+from models import us_lab_resource_plan_data
 from rest_framework import serializers
 
 
@@ -15,9 +16,13 @@ class us_lab_topology_data_serializer(serializers.ModelSerializer):
 class us_lab_settings_serializer(serializers.ModelSerializer):
     class Meta:
         model = us_lab_settings_data
-        fields = ('id', 'key', 'value')
+        fields = ('key', 'value')
 
-
+class us_lab_resource_plan_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = us_lab_resource_plan_data
+        fields = ('id', 'name', 'minIp', 'maxIp', 'ip_prefix', 'gateway', 'minHaId', 'maxHaId',
+                  'minVlan', 'maxVlan', 'minOspfId', 'maxOspfId', 'description')
 
 
 
