@@ -1,7 +1,8 @@
 <template>
     <section>
         <el-tabs v-model="activeName2"  @tab-click="handleTabClick" type="border-card" >
-            <el-tab-pane label="" name="tab_topology" >
+            <el-tab-pane label="Step" name="action_tab" >
+                <div>Under developing ...</div>
             </el-tab-pane>
         </el-tabs>
     </section>
@@ -12,13 +13,17 @@
 
         data() {
             return {
-                activeName2:'',
+                activeName2:'action_tab',
 
             };
 
         },
 
         methods: {
+            handleTabClick(tab, event) {
+                // console.log(tab, event);
+
+            },
 
         },
 
