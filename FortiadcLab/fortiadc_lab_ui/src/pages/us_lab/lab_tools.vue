@@ -1,6 +1,7 @@
 <template>
     <section>
-        <el-tabs v-model="activeName2"  @tab-click="handleTabClick" type="border-card" >
+        <!-- <el-tabs v-model="activeName2"  @tab-click="handleTabClick" type="border-card" > -->
+        <el-tabs v-model="activeName2" type="border-card" >
             <el-tab-pane label="Step" name="action_tab" >
                 <div>Under developing ...</div>
             </el-tab-pane>
