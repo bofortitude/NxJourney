@@ -353,7 +353,7 @@
                 console.log(this.filters.name == null)
                 console.log(this.filters.name != "")
                 if (this.filters.name != ''){
-                    para = para+this.filters.name+'&'
+                    para = para+'name='+this.filters.name+'&'
                     console.log(para)
                 }
                 console.log(para)
