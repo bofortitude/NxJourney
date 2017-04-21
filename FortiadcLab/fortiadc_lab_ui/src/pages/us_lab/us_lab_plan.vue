@@ -348,15 +348,10 @@
                 //     page_size: this.table_page_size
                 // };
                 let para = ''
-                console.log('get user debug ......')
-                console.log(this.filters.name)
-                console.log(this.filters.name == null)
-                console.log(this.filters.name != "")
                 if (this.filters.name != ''){
                     para = para+'name='+this.filters.name+'&'
-                    console.log(para)
                 }
-                console.log(para)
+
                 para = para+'page_size='+this.table_page_size+'&page='+this.page
                 this.listLoading = true;
                 NProgress.start();
@@ -387,7 +382,6 @@
                             type: 'success'
                         });
                         if (this.table_data_raw.length == 1 && this.total == 1){
-                            console.log('last item removed')
                         } else {
                             if (this.table_data_raw.length == 1 ){
                                 this.page = this.page-1;
@@ -412,7 +406,6 @@
 
                 this.editForm = Object.assign({}, myRow);
 
-                console.log(this.editForm)
             },
             //显示新增界面
             handleAdd: function () {
@@ -453,8 +446,6 @@
                             this.addLoading = true;
                             NProgress.start();
                             let para = Object.assign({}, this.addForm);
-                            console.log('add debug:')
-                            console.log(para)
                             addUsLabResourceRecord(para).then((res) => {
                                 this.addLoading = false;
                                 NProgress.done();

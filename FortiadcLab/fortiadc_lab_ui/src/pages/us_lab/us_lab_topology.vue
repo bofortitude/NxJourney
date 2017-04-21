@@ -284,7 +284,6 @@
             // this.getUsers();
           });
         }).catch(() => {
-          console.log('catch')
 
         });
 
@@ -292,19 +291,14 @@
       refreshEditTopologyTable(){},
       addNewTopologyItem(){this.addTopologyItemVisible=true},
       addTopologyItemSubmit: function () {
-        console.log(this.$refs.addTopologyItemForm)
         this.$refs.addTopologyItemForm.validate((valid) => {
-          console.log(valid)
           if (valid) {
             this.$confirm('Are you sure to submit?', 'Add Topology Item', {}).then(() => {
               this.addTopologyItemLoading = true;
               NProgress.start();
               let para = Object.assign({}, this.addTopologyItemModel);
-              console.log('post data to server, the param is:')
-              console.log(para)
 
               addTopologyItem(para).then((res) => {
-                console.log(res.status)
                 this.addTopologyItemLoading = false;
                 NProgress.done();
                 this.$notify({
@@ -472,7 +466,6 @@
       only_draw_lab_topology(retransformTopoData){
 
         if (retransformTopoData) {
-          console.log('to start transforming')
           this.handled_usTopologyData = this.usTopologyDataRaw_to_formal();
         }
         var cy = cytoscape({
@@ -509,12 +502,9 @@
       draw_lab_topology(){
         // this.loading = true;
         NProgress.start();
-        console.log('start to draw the lab topology')
 
         getUsTopologyData().then((res) => {
             // console.log(res)
-            console.log(res)
-            console.log(res.data)
             // this.topologyDataTableRaw = res.data.usTopologyData;
             this.topologyDataTableRaw = res.data;
             this.only_draw_lab_topology(true);
