@@ -2,7 +2,8 @@
     <section>
 
         <!-- <el-col :span="24" class="toolbar" style="padding-bottom: 0px;"> -->
-        <div :span="24" class="toolbar" style="padding-bottom: 0px;">
+        <!-- <div :span="24" class="toolbar" style="padding-bottom: 0px;"> -->
+        <div id = 'tool_panel' class="toolbar">
             <el-form :inline="true" :model="filters">
                 <el-form-item>
                     <el-input v-model="filters.name" placeholder="Name"></el-input>
