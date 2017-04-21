@@ -3,7 +3,7 @@
 
         <!-- <el-col :span="24" class="toolbar" style="padding-bottom: 0px;"> -->
         <!-- <div :span="24" class="toolbar" style="padding-bottom: 0px;"> -->
-        <div id = 'tool_panel' class="toolbar">
+        <div class="toolbar">
             <el-form :inline="true" :model="filters">
                 <el-form-item>
                     <el-input v-model="filters.name" placeholder="Name"></el-input>
@@ -15,10 +15,9 @@
                     <el-button type="primary" @click="handleAdd">New</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <!-- <el-button type="primary" @click="handleRefresh" type="success" style="float:right;" >Refresh</el-button> -->
+                    <el-button type="primary" @click="handleRefresh" type="success" style="float:right;" >Refresh</el-button>
                 </el-form-item>
             </el-form>
-            <el-button type="primary" @click="handleRefresh" type="success" style="float:right;" >Refresh</el-button>
         </div>
         <!-- </el-col> -->
 
@@ -55,8 +54,7 @@
         <!--工具条-->
 
         <!-- <div :span="24" class="toolbar"> -->
-        <!-- <div :span="24" > -->
-        <div :span="24" class="toolbar" style="padding-bottom: 0px;">
+        <div class="toolbar">
             <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
             <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size='table_page_size' :total="total" style="float:right;">
             </el-pagination>
