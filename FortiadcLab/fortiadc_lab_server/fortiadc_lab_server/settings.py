@@ -26,7 +26,7 @@ SECRET_KEY = 'f$uq74$)#qr=vl5_@yrr#rke5_rhnfz7a=-n*bzk+sc&u0pkao'
 DEBUG = True
 
 # customized
-ALLOWED_HOSTS = ['10.106.129.10']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -139,6 +139,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "../fortiadc_lab_ui/dist/static"),
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 REST_FRAMEWORK = {
 
