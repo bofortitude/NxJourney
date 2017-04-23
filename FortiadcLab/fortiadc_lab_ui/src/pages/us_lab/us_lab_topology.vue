@@ -507,7 +507,11 @@
             // console.log(res)
             // this.topologyDataTableRaw = res.data.usTopologyData;
             this.topologyDataTableRaw = res.data;
+            console.log('debug info -> topologyDataTableRaw:')
+            console.log(this.topologyDataTableRaw)
             this.only_draw_lab_topology(true);
+            console.log('debug info -> topologyDataTable')
+            console.log(this.handled_usTopologyData)
 
           NProgress.done();
         });
