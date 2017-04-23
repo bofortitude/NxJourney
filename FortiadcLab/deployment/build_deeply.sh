@@ -47,6 +47,11 @@ npm install
 echo "[---------------Run \"npm run build\" ... ---------------]"
 npm run build
 
+# install python requirements.txt
+echo "[---------------Change directory to $fortiadc_lab_server_code_path ---------------]"
+cd $fortiadc_lab_server_code_path
+echo "[---------------Run pip install -r requirements.txt ---------------]"
+pip install -r requirements.txt
 
 
 # collect static files for fortiadclab-server
