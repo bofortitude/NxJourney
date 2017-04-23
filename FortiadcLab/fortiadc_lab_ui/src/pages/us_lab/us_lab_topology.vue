@@ -468,6 +468,13 @@
         if (retransformTopoData) {
           this.handled_usTopologyData = this.usTopologyDataRaw_to_formal();
         }
+
+        console.log('debug info -> node object list:')
+        console.log(this.handled_usTopologyData['nodeList'])
+        console.log('debug info -> edge object list:')
+        console.log(this.handled_usTopologyData['edgeList'])
+        console.log('debug info -> style object list:')
+        console.log(this.handled_usTopologyData['styleList'])
         var cy = cytoscape({
             container: document.getElementById('us_lab_topology'),
             boxSelectionEnabled: true,
@@ -482,12 +489,6 @@
               // body...
             },
 
-            console.log('debug info -> node object list:')
-            console.log(this.handled_usTopologyData['nodeList'])
-            console.log('debug info -> edge object list:')
-            console.log(this.handled_usTopologyData['edgeList'])
-            console.log('debug info -> style object list:')
-            console.log(this.handled_usTopologyData['styleList'])
 
             elements: {nodes:this.handled_usTopologyData['nodeList'], edges:this.handled_usTopologyData['edgeList']},
             style: this.handled_usTopologyData['styleList'],
