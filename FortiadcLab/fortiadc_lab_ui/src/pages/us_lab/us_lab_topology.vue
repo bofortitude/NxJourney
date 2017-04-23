@@ -482,6 +482,13 @@
               // body...
             },
 
+            console.log('debug info -> node object list:')
+            console.log(this.handled_usTopologyData['nodeList'])
+            console.log('debug info -> edge object list:')
+            console.log(this.handled_usTopologyData['edgeList'])
+            console.log('debug info -> style object list:')
+            console.log(this.handled_usTopologyData['styleList'])
+
             elements: {nodes:this.handled_usTopologyData['nodeList'], edges:this.handled_usTopologyData['edgeList']},
             style: this.handled_usTopologyData['styleList'],
 
