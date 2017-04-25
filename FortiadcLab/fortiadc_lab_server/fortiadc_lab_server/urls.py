@@ -27,6 +27,10 @@ router = routers.DefaultRouter()
 router.register(r'userdata/uslabtopologydata', views.us_lab_topology_data_viewset)
 router.register(r'userdata/uslabsettingsdata', views.us_lab_settings_viewset)
 router.register(r'userdata/uslabresourceplandata', views.us_lab_resource_plan_viewset)
+router.register(r'userdata/uslabresourceplanipaddress', views.us_lab_resource_plan_ip_address_viewset)
+router.register(r'userdata/uslabresourceplanhaid', views.us_lab_resource_plan_ha_id_viewset)
+router.register(r'userdata/uslabresourceplanospfid', views.us_lab_resource_plan_ospf_id_viewset)
+router.register(r'userdata/uslabresourceplanvlan', views.us_lab_resource_plan_vlan_viewset)
 
 
 # us_lab_topology_data_view = views.us_lab_topology_data_viewset.as_view({'get': 'list', 'post':'create', 'put':'update'})
