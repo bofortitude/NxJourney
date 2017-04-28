@@ -87,14 +87,17 @@
                 <el-form-item label="name" prop="ip_address_name">
                     <el-input v-model="ip_address_editForm.name" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="IP">
-                    <el-col :span="10">
+                <el-form-item label="IP address start">
+                    <!-- <el-col :span="10"> -->
                         <el-input v-model="ip_address_editForm.minIp" auto-complete="off"></el-input>
-                    </el-col>
+                    <!-- </el-col> -->
                     <!-- <el-col class="line" :span="1">to</el-col> -->
-                    <el-col :span="10">
-                        <el-input v-model="ip_address_editForm.maxIp" auto-complete="off"></el-input>
-                    </el-col>
+                    <!-- <el-col :span="10"> -->
+                        <!-- <el-input v-model="ip_address_editForm.maxIp" auto-complete="off"></el-input> -->
+                    <!-- </el-col> -->
+                </el-form-item>
+                <el-form-item label="IP address end">
+                    <el-input v-model="ip_address_editForm.maxIp" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="Prefix">
                     <el-input-number v-model="ip_address_editForm.ip_prefix" :min="0" :max="128"></el-input-number>
@@ -717,7 +720,7 @@
 
         },
         mounted() {
-            this.getUsers();
+            this.ip_address_getUsers();
         }
     }
 
