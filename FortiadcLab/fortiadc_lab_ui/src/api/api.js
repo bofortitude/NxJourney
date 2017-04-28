@@ -38,6 +38,25 @@ export const removeUsLabResourceRecord = id => { return axios.delete(`${base}/us
 
 export const editUsLabResourceRecord = (id, params) => { return axios.put(`${base}/userdata/uslabresourceplandata/${id}/`, params ); };
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+export const getUsLabResourcePlanIpAddress = params => { return axios.get(`${base}/userdata/uslabresourceplanipaddress/?${params}`); };
+export const addUsLabResourcePlanIpAddress = params => { return axios.post(`${base}/userdata/uslabresourceplanipaddress/`, params ); };
+export const removeUsLabResourcePlanIpAddress = id => { return axios.delete(`${base}/userdata/uslabresourceplanipaddress/${id}/`); };
+export const editUsLabResourcePlanIpAddress = (id, params) => { return axios.put(`${base}/userdata/uslabresourceplanipaddress/${id}/`, params ); };
 
+export const getUsLabResourcePlanHaId = params => { return axios.get(`${base}/userdata/uslabresourceplanhaid/?${params}`); };
+export const addUsLabResourcePlanHaId = params => { return axios.post(`${base}/userdata/uslabresourceplanhaid/`, params ); };
+export const removeUsLabResourcePlanHaId = id => { return axios.delete(`${base}/userdata/uslabresourceplanhaid/${id}/`); };
+export const editUsLabResourcePlanHaId = (id, params) => { return axios.put(`${base}/userdata/uslabresourceplanhaid/${id}/`, params ); };
+
+export const getUsLabResourcePlanVlan = params => { return axios.get(`${base}/userdata/uslabresourceplanvlan/?${params}`); };
+export const addUsLabResourcePlanVlan = params => { return axios.post(`${base}/userdata/uslabresourceplanvlan/`, params ); };
+export const removeUsLabResourcePlanVlan = id => { return axios.delete(`${base}/userdata/uslabresourceplanvlan/${id}/`); };
+export const editUsLabResourcePlanVlan = (id, params) => { return axios.put(`${base}/userdata/uslabresourceplanvlan/${id}/`, params ); };
+
+export const getUsLabResourcePlanOspfId = params => { return axios.get(`${base}/userdata/uslabresourceplanospfid/?${params}`); };
+export const addUsLabResourcePlanOspfId = params => { return axios.post(`${base}/userdata/uslabresourceplanospfid/`, params ); };
+export const removeUsLabResourcePlanOspfId = id => { return axios.delete(`${base}/userdata/uslabresourceplanospfid/${id}/`); };
+export const editUsLabResourcePlanOspfId = (id, params) => { return axios.put(`${base}/userdata/uslabresourceplanospfid/${id}/`, params ); };
 
 

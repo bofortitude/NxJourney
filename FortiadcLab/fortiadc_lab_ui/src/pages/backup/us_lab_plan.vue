@@ -3,106 +3,85 @@
 
         <!-- <el-col :span="24" class="toolbar" style="padding-bottom: 0px;"> -->
         <!-- <div :span="24" class="toolbar" style="padding-bottom: 0px;"> -->
-        <el-tabs v-model="activeName2" @tab-click="handleTabClick" type="border-card" >
-            <el-tab-pane label="IP Address" name="ip_address" >
-                <div class="toolbar">
-                    <el-form :inline="true" :model="ip_address_filters">
-                        <el-form-item>
-                            <el-input v-model="ip_address_filters.name" placeholder="Name"></el-input>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" v-on:click="getUsers">Search</el-button>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="handleAdd">New</el-button>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="handleRefresh" type="success" style="float:right;" >Refresh</el-button>
-                        </el-form-item>
-                    </el-form>
-                </div>
-                <!-- </el-col> -->
+        <div class="toolbar">
+            <el-form :inline="true" :model="filters">
+                <el-form-item>
+                    <el-input v-model="filters.name" placeholder="Name"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" v-on:click="getUsers">Search</el-button>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="handleAdd">New</el-button>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="handleRefresh" type="success" style="float:right;" >Refresh</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+        <!-- </el-col> -->
 
 
-                <!-- <el-table stripe border :data="ip_address_table_data" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;"> -->
-                <el-table stripe border :data="ip_address_table_data" highlight-current-row v-loading="ip_address_listLoading" style="width: 100%;">
-                    <!-- <el-table-column type="selection" width="55">
-                    </el-table-column> -->
-                    <!-- <el-table-column type="index" width="60">
-                    </el-table-column> -->
-                    <el-table-column prop="name" label="Name" width="120" sortable fit>
-                    </el-table-column>
-                    <el-table-column prop="minIp" label="IP Address Starting" width="220" fit>
-                    </el-table-column>
-                    <el-table-column prop="maxIp" label="IP Address Ending" width="220" fit>
-                    </el-table-column>
-                    <el-table-column prop="ip_prefix" label="IP Prefix" width="100" fit>
-                    </el-table-column>
-                    <el-table-column prop="gateway" label="Gateway" width="120" fit>
-                    </el-table-column>
-                    <!-- <el-table-column prop="vlan" label="VLAN" width="160" fit>
-                    </el-table-column>
-                    <el-table-column prop="ha_id" label="HA ID" width="140" fit>
-                    </el-table-column>
-                    <el-table-column prop="ospf_area_id" label="OSPF Area ID" min-width="100" fit>
-                    </el-table-column> -->
-                    <el-table-column prop="description" label="Description" min-width="180" fit>
-                    </el-table-column>
-                    <el-table-column label="Action" width="150" fit>
-                        <template scope="scope">
-                            <el-button size="small" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                            <el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">Delete</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
+        <el-table stripe border :data="table_data" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+            <!-- <el-table-column type="selection" width="55">
+            </el-table-column> -->
+            <!-- <el-table-column type="index" width="60">
+            </el-table-column> -->
+            <el-table-column prop="name" label="Name" width="120" sortable fit>
+            </el-table-column>
+            <el-table-column prop="ip" label="IP Address" width="220" fit>
+            </el-table-column>
+            <el-table-column prop="ip_prefix" label="IP Prefix" width="100" fit>
+            </el-table-column>
+            <el-table-column prop="gateway" label="Gateway" width="120" fit>
+            </el-table-column>
+            <el-table-column prop="vlan" label="VLAN" width="160" fit>
+            </el-table-column>
+            <el-table-column prop="ha_id" label="HA ID" width="140" fit>
+            </el-table-column>
+            <el-table-column prop="ospf_area_id" label="OSPF Area ID" min-width="100" fit>
+            </el-table-column>
+            <el-table-column prop="description" label="Description" min-width="180" fit>
+            </el-table-column>
+            <el-table-column label="Action" width="150" fit>
+                <template scope="scope">
+                    <el-button size="small" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+                    <el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">Delete</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
 
-                <!--工具条-->
+        <!--工具条-->
 
-                <!-- <div :span="24" class="toolbar"> -->
-                <div class="toolbar">
-                    <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
-                    <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size='ip_address_table_page_size' :total="ip_address_total" style="float:right;">
-                    </el-pagination>
-                </div>
-
-            </el-tab-pane>
-
-
-            <el-tab-pane label="HA ID" name="ha_id" >
-            </el-tab-pane>
-
-            <el-tab-pane label="VLAN" name="vlan" >
-            </el-tab-pane>
-
-            <el-tab-pane label="OSPF ID" name="ospf_id" >
-            </el-tab-pane>
-
-
-
-        </el-tabs>
+        <!-- <div :span="24" class="toolbar"> -->
+        <div class="toolbar">
+            <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
+            <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size='table_page_size' :total="total" style="float:right;">
+            </el-pagination>
+        </div>
 
         <!--编辑界面-->
-        <el-dialog title="Edit" v-model="ip_address_editFormVisible" :close-on-click-modal="false">
-            <el-form :model="ip_address_editForm" label-width="80px" :rules="ip_address_editFormRules" ref="ip_address_editForm">
-                <el-form-item label="name" prop="ip_address_name">
-                    <el-input v-model="ip_address_editForm.name" auto-complete="off"></el-input>
+        <el-dialog title="Edit" v-model="editFormVisible" :close-on-click-modal="false">
+            <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+                <el-form-item label="name" prop="name">
+                    <el-input v-model="editForm.name" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="IP">
                     <el-col :span="10">
-                        <el-input v-model="ip_address_editForm.minIp" auto-complete="off"></el-input>
+                        <el-input v-model="editForm.minIp" auto-complete="off"></el-input>
                     </el-col>
-                    <!-- <el-col class="line" :span="1">to</el-col> -->
+                    <el-col class="line" :span="1">to</el-col>
                     <el-col :span="10">
-                        <el-input v-model="ip_address_editForm.maxIp" auto-complete="off"></el-input>
+                        <el-input v-model="editForm.maxIp" auto-complete="off"></el-input>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="Prefix">
-                    <el-input-number v-model="ip_address_editForm.ip_prefix" :min="0" :max="128"></el-input-number>
+                    <el-input-number v-model="editForm.ip_prefix" :min="0" :max="128"></el-input-number>
                 </el-form-item>
                 <el-form-item label="Gateway">
-                    <el-input v-model="ip_address_editForm.gateway" auto-complete="off"></el-input>
+                    <el-input v-model="editForm.gateway" auto-complete="off"></el-input>
                 </el-form-item>
-                <!-- <el-form-item label="HA ID">
+                <el-form-item label="HA ID">
                     <el-col :span="7">
                         <el-input-number v-model="editForm.minHaId" :min="0" :max="32"></el-input-number>
                     </el-col>
@@ -128,7 +107,7 @@
                     <el-col :span="7">
                         <el-input-number v-model="editForm.maxOspfId" :min="0" :max="4095"></el-input-number>
                     </el-col>
-                </el-form-item> -->
+                </el-form-item>
                 <el-form-item label="Description">
                     <el-input
                     type="textarea"
@@ -146,27 +125,27 @@
         </el-dialog>
 
         <!--新增界面-->
-        <el-dialog title="New" v-model="ip_address_addFormVisible" :close-on-click-modal="false">
-            <el-form :model="ip_address_addForm" label-width="80px" :rules="ip_address_addFormRules" ref="ip_address_addForm">
-                <el-form-item label="Name" prop="ip_address_name">
-                    <el-input v-model="ip_address_addForm.name" auto-complete="off"></el-input>
+        <el-dialog title="New" v-model="addFormVisible" :close-on-click-modal="false">
+            <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
+                <el-form-item label="Name" prop="name">
+                    <el-input v-model="addForm.name" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="IP">
                     <el-col :span="10">
-                        <el-input v-model="ip_address_addForm.minIp" auto-complete="off"></el-input>
+                        <el-input v-model="addForm.minIp" auto-complete="off"></el-input>
                     </el-col>
-                    <!-- <el-col class="line" :span="1">to</el-col> -->
+                    <el-col class="line" :span="1">to</el-col>
                     <el-col :span="10">
-                        <el-input v-model="ip_address_addForm.maxIp" auto-complete="off"></el-input>
+                        <el-input v-model="addForm.maxIp" auto-complete="off"></el-input>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="Prefix">
-                    <el-input-number v-model="ip_address_addForm.ip_prefix" :min="0" :max="128"></el-input-number>
+                    <el-input-number v-model="addForm.ip_prefix" :min="0" :max="128"></el-input-number>
                 </el-form-item>
                 <el-form-item label="Gateway">
-                    <el-input v-model="ip_address_addForm.gateway" auto-complete="off"></el-input>
+                    <el-input v-model="addForm.gateway" auto-complete="off"></el-input>
                 </el-form-item>
-                <!-- <el-form-item label="HA ID">
+                <el-form-item label="HA ID">
                     <el-col :span="7">
                         <el-input-number v-model="addForm.minHaId" :min="0" :max="32"></el-input-number>
                     </el-col>
@@ -192,7 +171,7 @@
                     <el-col :span="7">
                         <el-input-number v-model="addForm.maxOspfId" :min="0" :max="4095"></el-input-number>
                     </el-col>
-                </el-form-item> -->
+                </el-form-item>
                 <el-form-item label="Description">
                     <el-input
                     type="textarea"
@@ -217,27 +196,12 @@
     import util from '../../common/js/util'
     import NProgress from 'nprogress'
     import { getUsLabResourceList, addUsLabResourceRecord, removeUsLabResourceRecord, editUsLabResourceRecord } from '../../api/api';
-    import { getUsLabResourcePlanIpAddress, addUsLabResourcePlanIpAddress, removeUsLabResourcePlanIpAddress, editUsLabResourcePlanIpAddress } from '../../api/api';
-    import { getUsLabResourcePlanHaId, addUsLabResourcePlanHaId, removeUsLabResourcePlanHaId, editUsLabResourcePlanHaId } from '../../api/api';
-    import { getUsLabResourcePlanVlan, addUsLabResourcePlanVlan, removeUsLabResourcePlanVlan, editUsLabResourcePlanVlan } from '../../api/api';
-    import { getUsLabResourcePlanOspfId, addUsLabResourcePlanOspfId, removeUsLabResourcePlanOspfId, editUsLabResourcePlanOspfId } from '../../api/api';
 
     export default {
         data() {
             return {
-                activeName2: 'ip_address',
                 filters: {
                     name: ''
-                },
-
-                ha_id_filters: {
-                    name: ""
-                },
-                vlan_filters: {
-                    name: ""
-                },
-                ospf_id_filters: {
-                    name: ""
                 },
                 table_data: [
                     {
@@ -300,68 +264,12 @@
                 addForm: {
                     name: '',
 
-                },
-
-                //////////////////////////////////////////////////////////////////////////////////////////////////////////
-                ip_address_filters:{
-                    name: ""
-                },
-                ip_address_table_data: [
-                    {
-                        id: 1,
-                        name:'bo fei',
-                        minIp:'0.0.0.0',
-                        maxIp:'0.0.0.0',
-                        ip_prefix:'0',
-                        gateway:'0.0.0.0',
-                    }
-
-                ],
-
-                ip_address_total: 0,
-                ip_address_page: 1,
-                ip_address_table_page_size:50,
-                ip_address_listLoading: false,
-                // sels: [],//列表选中列
-
-                ip_address_editFormVisible: false,//编辑界面是否显示
-                ip_address_editLoading: false,
-                ip_address_editFormRules: {
-                    name: [
-                        { required: true, message: 'Please input name', trigger: 'blur' }
-                    ]
-                },
-                //编辑界面数据
-                ip_address_editForm: {
-                    id: 0,
-                    name: '',
-
-                },
-
-                ip_address_addFormVisible: false,//新增界面是否显示
-                ip_address_addLoading: false,
-                ip_address_addFormRules: {
-                    name: [
-                        { required: true, message: 'Please input name', trigger: 'blur' }
-                    ]
-                },
-                //新增界面数据
-                ip_address_addForm: {
-                    name: '',
-                },
+                }
 
             }
         },
         methods: {
-            handleTabClick: function (tab, event) {
-                // body...
-                // if (this.activeName2 === "tab_topology"){
-                //     this.draw_lab_topology()
-                // };
-            },
-
-
-
+            //性别显示转换
             handleRefresh: function () {
                 // body...
                 this.getUsers()
@@ -580,141 +488,6 @@
 
             //     });
             // }
-
-
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ip_address_getUsers() {
-                let para = ''
-                if (this.ip_address_filters.name != ''){
-                    para = para+'name='+this.ip_address_filters.name+'&'
-                }
-
-                para = para+'page_size='+this.ip_address_table_page_size+'&page='+this.ip_address_page
-                this.ip_address_listLoading = true;
-                NProgress.start();
-                getUsLabResourcePlanIpAddress(para).then((res) => {
-                    this.ip_address_total = res.data.count;
-                    // this.table_data_raw = res.data.results;
-                    // this.transformTableDataRawToFormal();
-                    this.ip_address_table_data = res.data.results;
-                    this.ip_address_listLoading = false;
-                    NProgress.done();
-                });
-            },
-            ip_address_handleRefresh: function () {
-                // body...
-                this.ip_address_getUsers()
-            },
-
-            ip_address_handleCurrentChange(val) {
-                this.ip_address_page = val;
-                this.ip_address_getUsers();
-            },
-            ip_address_handleDel: function (index, row) {
-                this.$confirm('Are you sure to delete it?', 'Warning', {
-                    type: 'warning'
-                }).then(() => {
-                    this.ip_address_listLoading = true;
-                    NProgress.start();
-                    // let para = { id: row.id };
-                    let para = row.id;
-                    removeUsLabResourcePlanIpAddress(para).then((res) => {
-
-                        this.ip_address_listLoading = false;
-                        NProgress.done();
-                        this.$notify({
-                            title: 'Success',
-                            message: 'Delete success!',
-                            type: 'success'
-                        });
-                        if (this.ip_address_table_data.length == 1 && this.ip_address_total == 1){
-                        } else {
-                            if (this.ip_address_table_data.length == 1 ){
-                                this.ip_address_page = this.ip_address_page-1;
-                            }
-                        }
-                        this.ip_address_getUsers();
-                    });
-                }).catch(() => {
-
-                });
-            },
-            //显示编辑界面
-            ip_address_handleEdit: function (index, row) {
-                this.ip_address_editFormVisible = true;
-                let myRow = ''
-                for (let num in this.ip_address_table_data){
-                    if (this.ip_address_table_data[num]['id'] == row.id){
-                        myRow = this.ip_address_table_data[num]
-                    }
-                }
-                this.ip_address_editForm = Object.assign({}, myRow);
-
-            },
-            //显示新增界面
-            ip_address_handleAdd: function () {
-                this.ip_address_addFormVisible = true;
-                this.ip_address_addForm = {
-                    name: '',
-                };
-            },
-            //编辑
-            ip_address_editSubmit: function () {
-                this.$refs.ip_address_editForm.validate((valid) => {
-                    if (valid) {
-                        this.$confirm('Are you sure to submit?', 'Edit', {}).then(() => {
-                            this.ip_address_editLoading = true;
-                            NProgress.start();
-                            let para = Object.assign({}, this.ip_address_editForm);
-                            editUsLabResourcePlanIpAddress(para.id, para).then((res) => {
-                                this.ip_address_editLoading = false;
-                                NProgress.done();
-                                this.$notify({
-                                    title: 'Success',
-                                    message: 'Submit successfully!',
-                                    type: 'success'
-                                });
-                                this.$refs['ip_address_editForm'].resetFields();
-                                this.ip_address_editFormVisible = false;
-                                this.ip_address_getUsers();
-                            });
-                        });
-                    }
-                });
-            },
-            //新增
-            addSubmit: function () {
-                this.$refs.ip_address_addForm.validate((valid) => {
-                    if (valid) {
-                        this.$confirm('Are you sure to submit?', 'Add', {}).then(() => {
-                            this.ip_address_addLoading = true;
-                            NProgress.start();
-                            let para = Object.assign({}, this.ip_address_addForm);
-                            addUsLabResourcePlanIpAddress(para).then((res) => {
-                                this.ip_address_addLoading = false;
-                                NProgress.done();
-                                this.$notify({
-                                    title: 'Success',
-                                    message: 'Submit successfully!',
-                                    type: 'success'
-                                });
-                                this.$refs['ip_address_addForm'].resetFields();
-                                this.ip_address_addFormVisible = false;
-                                this.ip_address_getUsers();
-                            });
-                        });
-                    }
-                });
-            },
-            selsChange: function (sels) {
-                this.sels = sels;
-            },
-
-
-
-
-
-
         },
         mounted() {
             this.getUsers();
