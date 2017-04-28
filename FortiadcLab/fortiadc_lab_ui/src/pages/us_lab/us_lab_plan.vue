@@ -11,13 +11,13 @@
                             <el-input v-model="ip_address_filters.name" placeholder="Name"></el-input>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" v-on:click="getUsers">Search</el-button>
+                            <el-button type="primary" v-on:click="ip_address_getUsers">Search</el-button>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" @click="handleAdd">New</el-button>
+                            <el-button type="primary" @click="ip_address_handleAdd">New</el-button>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" @click="handleRefresh" type="success" style="float:right;" >Refresh</el-button>
+                            <el-button type="primary" @click="ip_address_handleRefresh" type="success" style="float:right;" >Refresh</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -50,8 +50,8 @@
                     </el-table-column>
                     <el-table-column label="Action" width="150" fit>
                         <template scope="scope">
-                            <el-button size="small" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                            <el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">Delete</el-button>
+                            <el-button size="small" @click="ip_address_handleEdit(scope.$index, scope.row)">Edit</el-button>
+                            <el-button type="danger" size="small" @click="ip_address_handleDel(scope.$index, scope.row)">Delete</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -61,7 +61,7 @@
                 <!-- <div :span="24" class="toolbar"> -->
                 <div class="toolbar">
                     <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
-                    <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size='ip_address_table_page_size' :total="ip_address_total" style="float:right;">
+                    <el-pagination layout="prev, pager, next" @current-change="ip_address_handleCurrentChange" :page-size='ip_address_table_page_size' :total="ip_address_total" style="float:right;">
                     </el-pagination>
                 </div>
 
@@ -134,14 +134,14 @@
                     type="textarea"
                     :rows="5"
                     placeholder="Please input the content."
-                    v-model="editForm.description">
+                    v-model="ip_address_editForm.description">
                     </el-input>
                 </el-form-item>
 
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native="editFormVisible = false">Cancel</el-button>
-                <el-button type="primary" @click.native="editSubmit" :loading="editLoading">Submit</el-button>
+                <el-button @click.native="ip_address_editFormVisible = false">Cancel</el-button>
+                <el-button type="primary" @click.native="ip_address_editSubmit" :loading="ip_address_editLoading">Submit</el-button>
             </div>
         </el-dialog>
 
@@ -198,14 +198,14 @@
                     type="textarea"
                     :rows="5"
                     placeholder="Please input the content."
-                    v-model="addForm.description">
+                    v-model="ip_address_addForm.description">
                     </el-input>
                 </el-form-item>
 
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.native="addFormVisible = false">Cancel</el-button>
-                <el-button type="primary" @click.native="addSubmit" :loading="addLoading">Submit</el-button>
+                <el-button @click.native="ip_address_addFormVisible = false">Cancel</el-button>
+                <el-button type="primary" @click.native="ip_address_addSubmit" :loading="ip_address_addLoading">Submit</el-button>
             </div>
         </el-dialog>
 
