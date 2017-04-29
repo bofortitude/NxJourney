@@ -158,7 +158,7 @@
                     <el-col :span="10">
                         <el-input v-model="ip_address_addForm.minIp" auto-complete="off"></el-input>
                     </el-col>
-                    <!-- <el-col class="line" :span="1">to</el-col> -->
+                    <el-col class="line" :span="1">to</el-col>
                     <el-col :span="10">
                         <el-input v-model="ip_address_addForm.maxIp" auto-complete="off"></el-input>
                     </el-col>
@@ -686,7 +686,7 @@
                 });
             },
             //新增
-            addSubmit: function () {
+            ip_address_addSubmit: function () {
                 this.$refs.ip_address_addForm.validate((valid) => {
                     if (valid) {
                         this.$confirm('Are you sure to submit?', 'Add', {}).then(() => {
@@ -709,9 +709,7 @@
                     }
                 });
             },
-            selsChange: function (sels) {
-                this.sels = sels;
-            },
+
 
 
 
