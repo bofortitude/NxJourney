@@ -32,9 +32,9 @@
                     </el-table-column> -->
                     <el-table-column prop="name" label="Name" width="120" sortable fit>
                     </el-table-column>
-                    <el-table-column prop="minIp" label="IP Address Starting" width="220" fit>
+                    <el-table-column prop="minIp" label="From" width="220" fit>
                     </el-table-column>
-                    <el-table-column prop="maxIp" label="IP Address Ending" width="220" fit>
+                    <el-table-column prop="maxIp" label="To" width="220" fit>
                     </el-table-column>
                     <el-table-column prop="ip_prefix" label="IP Prefix" width="100" fit>
                     </el-table-column>
@@ -68,39 +68,109 @@
             </el-tab-pane>
 
 
-            <el-tab-pane label="HA ID" name="ha_id" >
-            </el-tab-pane>
-
             <el-tab-pane label="VLAN" name="vlan" >
+                <div class="toolbar">
+                    <el-form :inline="true" :model="vlan_filters">
+                        <el-form-item>
+                            <el-input v-model="vlan_filters.name" placeholder="Name"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" v-on:click="vlan_getUsers">Search</el-button>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="vlan_handleAdd">New</el-button>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="vlan_handleRefresh" type="success" style="float:right;" >Refresh</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+
+                <el-table stripe border :data="vlan_table_data" highlight-current-row v-loading="vlan_listLoading" style="width: 100%;">
+                    <el-table-column prop="name" label="Name" width="120" sortable fit>
+                    </el-table-column>
+                    <el-table-column prop="minVlan" label="From" width="160" fit>
+                    </el-table-column>
+                    <el-table-column prop="maxVlan" label="To" width="160" fit>
+                    </el-table-column>
+                    <el-table-column prop="description" label="Description" min-width="180" fit>
+                    </el-table-column>
+                    <el-table-column label="Action" width="150" fit>
+                        <template scope="scope">
+                            <el-button size="small" @click="vlan_handleEdit(scope.$index, scope.row)">Edit</el-button>
+                            <el-button type="danger" size="small" @click="vlan_handleDel(scope.$index, scope.row)">Delete</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+
+
+                <div class="toolbar">
+                    <el-pagination layout="prev, pager, next" @current-change="vlan_handleCurrentChange" :page-size='vlan_table_page_size' :total="vlan_total" style="float:right;">
+                    </el-pagination>
+                </div>
             </el-tab-pane>
 
-            <el-tab-pane label="OSPF ID" name="ospf_id" >
+
+
+            <el-tab-pane label="HA ID" name="ha_id" >
+                <div class="toolbar">
+                    <el-form :inline="true" :model="ha_id_filters">
+                        <el-form-item>
+                            <el-input v-model="ha_id_filters.name" placeholder="Name"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" v-on:click="ha_id_getUsers">Search</el-button>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="ha_id_handleAdd">New</el-button>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="ha_id_handleRefresh" type="success" style="float:right;" >Refresh</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+
+                <el-table stripe border :data="ha_id_table_data" highlight-current-row v-loading="ha_id_listLoading" style="width: 100%;">
+                    <el-table-column prop="name" label="Name" width="120" sortable fit>
+                    </el-table-column>
+                    <el-table-column prop="minHaId" label="From" width="160" fit>
+                    </el-table-column>
+                    <el-table-column prop="maxHaId" label="To" width="160" fit>
+                    </el-table-column>
+                    <el-table-column prop="description" label="Description" min-width="180" fit>
+                    </el-table-column>
+                    <el-table-column label="Action" width="150" fit>
+                        <template scope="scope">
+                            <el-button size="small" @click="ha_id_handleEdit(scope.$index, scope.row)">Edit</el-button>
+                            <el-button type="danger" size="small" @click="ha_id_handleDel(scope.$index, scope.row)">Delete</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+
+
+                <div class="toolbar">
+                    <el-pagination layout="prev, pager, next" @current-change="ha_id_handleCurrentChange" :page-size='ha_id_table_page_size' :total="ha_id_total" style="float:right;">
+                    </el-pagination>
+                </div>
             </el-tab-pane>
-
-
 
         </el-tabs>
 
-        <!--编辑界面-->
+        <!--Edit IP Address-->
         <el-dialog title="Edit" v-model="ip_address_editFormVisible" :close-on-click-modal="false">
             <el-form :model="ip_address_editForm" label-width="80px" :rules="ip_address_editFormRules" ref="ip_address_editForm">
                 <el-form-item label="name" prop="ip_address_name">
                     <el-input v-model="ip_address_editForm.name" auto-complete="on"></el-input>
                 </el-form-item>
                 <el-form-item label="IP Range">
-                    <!-- <el-col :span="10"> -->
-                    <div>
+                    <el-col :span="10">
                         <el-input v-model="ip_address_editForm.minIp" auto-complete="on"></el-input>
-                    <!-- </el-col> -->
-                    <!-- <el-col class="line" :span="1">to</el-col> -->
-                    <!-- <el-col :span="10"> -->
+                    </el-col>
+                    <el-col class="line" :span="1">to</el-col>
+                    <el-col :span="10">
                         <el-input v-model="ip_address_editForm.maxIp" auto-complete="on"></el-input>
-                    <!-- </el-col> -->
-                    </div>
+                    </el-col>
                 </el-form-item>
-                <!-- <el-form-item label="IP address end">
-                    <el-input v-model="ip_address_editForm.maxIp" auto-complete="on"></el-input>
-                </el-form-item> -->
                 <el-form-item label="Prefix">
                     <el-input-number v-model="ip_address_editForm.ip_prefix" :min="0" :max="128"></el-input-number>
                 </el-form-item>
@@ -150,26 +220,26 @@
             </div>
         </el-dialog>
 
-        <!--新增界面-->
+        <!--Add IP Address-->
         <el-dialog title="New" v-model="ip_address_addFormVisible" :close-on-click-modal="false">
             <el-form :model="ip_address_addForm" label-width="80px" :rules="ip_address_addFormRules" ref="ip_address_addForm">
                 <el-form-item label="Name" prop="ip_address_name">
-                    <el-input v-model="ip_address_addForm.name" auto-complete="off"></el-input>
+                    <el-input v-model="ip_address_addForm.name" auto-complete="on"></el-input>
                 </el-form-item>
                 <el-form-item label="IP">
                     <el-col :span="10">
-                        <el-input v-model="ip_address_addForm.minIp" auto-complete="off"></el-input>
+                        <el-input v-model="ip_address_addForm.minIp" auto-complete="on"></el-input>
                     </el-col>
                     <el-col class="line" :span="1">to</el-col>
                     <el-col :span="10">
-                        <el-input v-model="ip_address_addForm.maxIp" auto-complete="off"></el-input>
+                        <el-input v-model="ip_address_addForm.maxIp" auto-complete="on"></el-input>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="Prefix">
                     <el-input-number v-model="ip_address_addForm.ip_prefix" :min="0" :max="128"></el-input-number>
                 </el-form-item>
                 <el-form-item label="Gateway">
-                    <el-input v-model="ip_address_addForm.gateway" auto-complete="off"></el-input>
+                    <el-input v-model="ip_address_addForm.gateway" auto-complete="on"></el-input>
                 </el-form-item>
                 <!-- <el-form-item label="HA ID">
                     <el-col :span="7">
@@ -214,6 +284,144 @@
             </div>
         </el-dialog>
 
+
+        <!-- Edit VLAN -->
+        <el-dialog title="Edit" v-model="vlan_editFormVisible" :close-on-click-modal="false">
+            <el-form :model="vlan_editForm" label-width="80px" :rules="vlan_editFormRules" ref="vlan_editForm">
+                <el-form-item label="name" prop="vlan_name">
+                    <el-input v-model="vlan_editForm.name" auto-complete="on"></el-input>
+                </el-form-item>
+
+                <el-form-item label="VLAN Range">
+                    <el-col :span="7">
+                        <el-input-number v-model="vlan_editForm.minVlan" :min="0" :max="4095"></el-input-number>
+                    </el-col>
+                    <el-col class="line" :span="2">to</el-col>
+                    <el-col :span="7">
+                        <el-input-number v-model="vlan_editForm.maxVlan" :min="0" :max="4095"></el-input-number>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="Description">
+                    <el-input
+                    type="textarea"
+                    :rows="5"
+                    placeholder="Please input the content."
+                    v-model="vlan_editForm.description">
+                    </el-input>
+                </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="vlan_editFormVisible = false">Cancel</el-button>
+                <el-button type="primary" @click.native="vlan_editSubmit" :loading="vlan_editLoading">Submit</el-button>
+            </div>
+        </el-dialog>
+
+        <!-- Add VLAN -->
+        <el-dialog title="New" v-model="vlan_addFormVisible" :close-on-click-modal="false">
+            <el-form :model="vlan_addForm" label-width="80px" :rules="vlan_addFormRules" ref="vlan_addForm">
+                <el-form-item label="Name" prop="vlan_name">
+                    <el-input v-model="vlan_addForm.name" auto-complete="on"></el-input>
+                </el-form-item>
+
+                <el-form-item label="VLAN Range">
+                    <el-col :span="7">
+                        <el-input-number v-model="vlan_addForm.minVlan" :min="0" :max="4095"></el-input-number>
+                    </el-col>
+                    <el-col class="line" :span="2">to</el-col>
+                    <el-col :span="7">
+                        <el-input-number v-model="vlan_addForm.maxVlan" :min="0" :max="4095"></el-input-number>
+                    </el-col>
+                </el-form-item>
+
+                <el-form-item label="Description">
+                    <el-input
+                    type="textarea"
+                    :rows="5"
+                    placeholder="Please input the content."
+                    v-model="vlan_addForm.description">
+                    </el-input>
+                </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="vlan_addFormVisible = false">Cancel</el-button>
+                <el-button type="primary" @click.native="vlan_addSubmit" :loading="vlan_addLoading">Submit</el-button>
+            </div>
+        </el-dialog>
+
+        <!-- Edit HA ID -->
+        <el-dialog title="Edit" v-model="ha_id_editFormVisible" :close-on-click-modal="false">
+            <el-form :model="ha_id_editForm" label-width="80px" :rules="ha_id_editFormRules" ref="ha_id_editForm">
+                <el-form-item label="name" prop="ha_id_name">
+                    <el-input v-model="ha_id_editForm.name" auto-complete="on"></el-input>
+                </el-form-item>
+
+                <el-form-item label="HA ID">
+                    <el-col :span="7">
+                        <el-input-number v-model="ha_id_editForm.minHaId" :min="0" :max="32"></el-input-number>
+                    </el-col>
+                    <el-col class="line" :span="2">to</el-col>
+                    <el-col :span="7">
+                        <el-input-number v-model="ha_id_editForm.maxHaId" :min="0" :max="32"></el-input-number>
+                    </el-col>
+                </el-form-item>
+
+                <el-form-item label="Description">
+                    <el-input
+                    type="textarea"
+                    :rows="5"
+                    placeholder="Please input the content."
+                    v-model="ha_id_editForm.description">
+                    </el-input>
+                </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="ha_id_editFormVisible = false">Cancel</el-button>
+                <el-button type="primary" @click.native="ha_id_editSubmit" :loading="ha_id_editLoading">Submit</el-button>
+            </div>
+        </el-dialog>
+
+
+
+        <!-- Add HA ID -->
+        <el-dialog title="New" v-model="ha_id_addFormVisible" :close-on-click-modal="false">
+            <el-form :model="ha_id_addForm" label-width="80px" :rules="ha_id_addFormRules" ref="ha_id_addForm">
+                <el-form-item label="Name" prop="ha_id_name">
+                    <el-input v-model="ha_id_addForm.name" auto-complete="on"></el-input>
+                </el-form-item>
+
+                <el-form-item label="HA ID">
+                    <el-col :span="7">
+                        <el-input-number v-model="ha_id_addForm.minHaId" :min="0" :max="32"></el-input-number>
+                    </el-col>
+                    <el-col class="line" :span="2">to</el-col>
+                    <el-col :span="7">
+                        <el-input-number v-model="ha_id_addForm.maxHaId" :min="0" :max="32"></el-input-number>
+                    </el-col>
+                </el-form-item>
+
+                <el-form-item label="Description">
+                    <el-input
+                    type="textarea"
+                    :rows="5"
+                    placeholder="Please input the content."
+                    v-model="ha_id_addForm.description">
+                    </el-input>
+                </el-form-item>
+
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.native="ha_id_addFormVisible = false">Cancel</el-button>
+                <el-button type="primary" @click.native="ha_id_addSubmit" :loading="ha_id_addLoading">Submit</el-button>
+            </div>
+        </el-dialog>
+
+
+
+
+
     </section>
 
 </template>
@@ -225,7 +433,7 @@
     import { getUsLabResourcePlanIpAddress, addUsLabResourcePlanIpAddress, removeUsLabResourcePlanIpAddress, editUsLabResourcePlanIpAddress } from '../../api/api';
     import { getUsLabResourcePlanHaId, addUsLabResourcePlanHaId, removeUsLabResourcePlanHaId, editUsLabResourcePlanHaId } from '../../api/api';
     import { getUsLabResourcePlanVlan, addUsLabResourcePlanVlan, removeUsLabResourcePlanVlan, editUsLabResourcePlanVlan } from '../../api/api';
-    import { getUsLabResourcePlanOspfId, addUsLabResourcePlanOspfId, removeUsLabResourcePlanOspfId, editUsLabResourcePlanOspfId } from '../../api/api';
+    // import { getUsLabResourcePlanOspfId, addUsLabResourcePlanOspfId, removeUsLabResourcePlanOspfId, editUsLabResourcePlanOspfId } from '../../api/api';
 
     export default {
         data() {
@@ -235,15 +443,7 @@
                     name: ''
                 },
 
-                ha_id_filters: {
-                    name: ""
-                },
-                vlan_filters: {
-                    name: ""
-                },
-                ospf_id_filters: {
-                    name: ""
-                },
+
                 table_data: [
                     {
                         id: 1,
@@ -319,6 +519,7 @@
                         maxIp:'0.0.0.0',
                         ip_prefix:'0',
                         gateway:'0.0.0.0',
+                        description: ''
                     }
 
                 ],
@@ -354,6 +555,102 @@
                 ip_address_addForm: {
                     name: '',
                 },
+
+                //-------------------------------------------------------------------------------
+                ha_id_filters:{
+                    name: ""
+                },
+                ha_id_table_data: [
+                    {
+                        id: 1,
+                        name:'bo fei',
+                        minHaId:'1',
+                        maxHaId:'5',
+                        description: ''
+                    }
+
+                ],
+
+                ha_id_total: 0,
+                ha_id_page: 1,
+                ha_id_table_page_size:5,
+                ha_id_listLoading: false,
+                // sels: [],//列表选中列
+
+                ha_id_editFormVisible: false,//编辑界面是否显示
+                ha_id_editLoading: false,
+                ha_id_editFormRules: {
+                    name: [
+                        { required: true, message: 'Please input name', trigger: 'blur' }
+                    ]
+                },
+                //编辑界面数据
+                ha_id_editForm: {
+                    id: 0,
+                    name: '',
+
+                },
+
+                ha_id_addFormVisible: false,//新增界面是否显示
+                ha_id_addLoading: false,
+                ha_id_addFormRules: {
+                    name: [
+                        { required: true, message: 'Please input name', trigger: 'blur' }
+                    ]
+                },
+                //新增界面数据
+                ha_id_addForm: {
+                    name: '',
+                },
+
+                //-------------------------------------------------------------------------------
+                vlan_filters:{
+                    name: ""
+                },
+                vlan_table_data: [
+                    {
+                        id: 1,
+                        name:'bo fei',
+                        minVlan:'1000',
+                        maxVlan:'1100',
+                        description: ''
+                    }
+
+                ],
+
+                vlan_total: 0,
+                vlan_page: 1,
+                vlan_table_page_size:5,
+                vlan_listLoading: false,
+                // sels: [],//列表选中列
+
+                vlan_editFormVisible: false,//编辑界面是否显示
+                vlan_editLoading: false,
+                vlan_editFormRules: {
+                    name: [
+                        { required: true, message: 'Please input name', trigger: 'blur' }
+                    ]
+                },
+                //编辑界面数据
+                vlan_editForm: {
+                    id: 0,
+                    name: '',
+
+                },
+
+                vlan_addFormVisible: false,//新增界面是否显示
+                vlan_addLoading: false,
+                vlan_addFormRules: {
+                    name: [
+                        { required: true, message: 'Please input name', trigger: 'blur' }
+                    ]
+                },
+                //新增界面数据
+                vlan_addForm: {
+                    name: '',
+                },
+
+
 
             }
         },
@@ -587,7 +884,7 @@
             // }
 
 
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////// IP Address Method //////////////////////////////////////////////////////////////
             ip_address_getUsers() {
                 let para = ''
                 if (this.ip_address_filters.name != ''){
@@ -712,7 +1009,258 @@
                 });
             },
 
+            //------------------------------------------------ VLAN method ---------------------------------------------------------------------
+            vlan_getUsers() {
+                let para = ''
+                if (this.vlan_filters.name != ''){
+                    para = para+'name='+this.vlan_filters.name+'&'
+                }
 
+                para = para+'page_size='+this.vlan_table_page_size+'&page='+this.vlan_page
+                this.vlan_listLoading = true;
+                NProgress.start();
+                getUsLabResourcePlanVlan(para).then((res) => {
+                    this.vlan_total = res.data.count;
+                    // this.table_data_raw = res.data.results;
+                    // this.transformTableDataRawToFormal();
+                    this.vlan_table_data = res.data.results;
+                    this.vlan_listLoading = false;
+                    NProgress.done();
+                });
+            },
+            vlan_handleRefresh: function () {
+                // body...
+                this.vlan_getUsers()
+            },
+
+            vlan_handleCurrentChange(val) {
+                this.vlan_page = val;
+                this.vlan_getUsers();
+            },
+            vlan_handleDel: function (index, row) {
+                this.$confirm('Are you sure to delete it?', 'Warning', {
+                    type: 'warning'
+                }).then(() => {
+                    this.vlan_listLoading = true;
+                    NProgress.start();
+                    // let para = { id: row.id };
+                    let para = row.id;
+                    removeUsLabResourcePlanVlan(para).then((res) => {
+
+                        this.vlan_listLoading = false;
+                        NProgress.done();
+                        this.$notify({
+                            title: 'Success',
+                            message: 'Delete success!',
+                            type: 'success'
+                        });
+                        if (this.vlan_table_data.length == 1 && this.vlan_total == 1){
+                        } else {
+                            if (this.vlan_table_data.length == 1 ){
+                                this.vlan_page = this.vlan_page-1;
+                            }
+                        }
+                        this.vlan_getUsers();
+                    });
+                }).catch(() => {
+
+                });
+            },
+            //显示编辑界面
+            vlan_handleEdit: function (index, row) {
+                this.vlan_editFormVisible = true;
+                let myRow = ''
+                for (let num in this.vlan_table_data){
+                    if (this.vlan_table_data[num]['id'] == row.id){
+                        myRow = this.vlan_table_data[num]
+                    }
+                }
+                this.vlan_editForm = Object.assign({}, myRow);
+
+            },
+            //显示新增界面
+            vlan_handleAdd: function () {
+                this.vlan_addFormVisible = true;
+                this.vlan_addForm = {
+                    name: '',
+                };
+            },
+            //编辑
+            vlan_editSubmit: function () {
+                this.$refs.vlan_editForm.validate((valid) => {
+                    if (valid) {
+                        this.$confirm('Are you sure to submit?', 'Edit', {}).then(() => {
+                            this.vlan_editLoading = true;
+                            NProgress.start();
+                            let para = Object.assign({}, this.vlan_editForm);
+                            editUsLabResourcePlanVlan(para.id, para).then((res) => {
+                                this.vlan_editLoading = false;
+                                NProgress.done();
+                                this.$notify({
+                                    title: 'Success',
+                                    message: 'Submit successfully!',
+                                    type: 'success'
+                                });
+                                this.$refs['vlan_editForm'].resetFields();
+                                this.vlan_editFormVisible = false;
+                                this.vlan_getUsers();
+                            });
+                        });
+                    }
+                });
+            },
+            //新增
+            vlan_addSubmit: function () {
+                this.$refs.vlan_addForm.validate((valid) => {
+                    if (valid) {
+                        this.$confirm('Are you sure to submit?', 'Add', {}).then(() => {
+                            this.vlan_addLoading = true;
+                            NProgress.start();
+                            let para = Object.assign({}, this.vlan_addForm);
+                            addUsLabResourcePlanVlan(para).then((res) => {
+                                this.vlan_addLoading = false;
+                                NProgress.done();
+                                this.$notify({
+                                    title: 'Success',
+                                    message: 'Submit successfully!',
+                                    type: 'success'
+                                });
+                                this.$refs['vlan_addForm'].resetFields();
+                                this.vlan_addFormVisible = false;
+                                this.vlan_getUsers();
+                            });
+                        });
+                    }
+                });
+            },
+
+
+
+
+            //----------------------------------------------- HA ID ------------------------------------------------------------------------------------
+            ha_id_getUsers() {
+                let para = ''
+                if (this.ha_id_filters.name != ''){
+                    para = para+'name='+this.ha_id_filters.name+'&'
+                }
+
+                para = para+'page_size='+this.ha_id_table_page_size+'&page='+this.ha_id_page
+                this.ha_id_listLoading = true;
+                NProgress.start();
+                getUsLabResourcePlanHaId(para).then((res) => {
+                    this.ha_id_total = res.data.count;
+                    // this.table_data_raw = res.data.results;
+                    // this.transformTableDataRawToFormal();
+                    this.ha_id_table_data = res.data.results;
+                    this.ha_id_listLoading = false;
+                    NProgress.done();
+                });
+            },
+            ha_id_handleRefresh: function () {
+                // body...
+                this.ha_id_getUsers()
+            },
+
+            ha_id_handleCurrentChange(val) {
+                this.ha_id_page = val;
+                this.ha_id_getUsers();
+            },
+            ha_id_handleDel: function (index, row) {
+                this.$confirm('Are you sure to delete it?', 'Warning', {
+                    type: 'warning'
+                }).then(() => {
+                    this.ha_id_listLoading = true;
+                    NProgress.start();
+                    // let para = { id: row.id };
+                    let para = row.id;
+                    removeUsLabResourcePlanHaId(para).then((res) => {
+
+                        this.ha_id_listLoading = false;
+                        NProgress.done();
+                        this.$notify({
+                            title: 'Success',
+                            message: 'Delete success!',
+                            type: 'success'
+                        });
+                        if (this.ha_id_table_data.length == 1 && this.ha_id_total == 1){
+                        } else {
+                            if (this.ha_id_table_data.length == 1 ){
+                                this.ha_id_page = this.ha_id_page-1;
+                            }
+                        }
+                        this.ha_id_getUsers();
+                    });
+                }).catch(() => {
+
+                });
+            },
+            //显示编辑界面
+            ha_id_handleEdit: function (index, row) {
+                this.ha_id_editFormVisible = true;
+                let myRow = ''
+                for (let num in this.ha_id_table_data){
+                    if (this.ha_id_table_data[num]['id'] == row.id){
+                        myRow = this.ha_id_table_data[num]
+                    }
+                }
+                this.ha_id_editForm = Object.assign({}, myRow);
+
+            },
+            //显示新增界面
+            ha_id_handleAdd: function () {
+                this.ha_id_addFormVisible = true;
+                this.ha_id_addForm = {
+                    name: '',
+                };
+            },
+            //编辑
+            ha_id_editSubmit: function () {
+                this.$refs.ha_id_editForm.validate((valid) => {
+                    if (valid) {
+                        this.$confirm('Are you sure to submit?', 'Edit', {}).then(() => {
+                            this.ha_id_editLoading = true;
+                            NProgress.start();
+                            let para = Object.assign({}, this.ha_id_editForm);
+                            editUsLabResourcePlanHaId(para.id, para).then((res) => {
+                                this.ha_id_editLoading = false;
+                                NProgress.done();
+                                this.$notify({
+                                    title: 'Success',
+                                    message: 'Submit successfully!',
+                                    type: 'success'
+                                });
+                                this.$refs['ha_id_editForm'].resetFields();
+                                this.ha_id_editFormVisible = false;
+                                this.ha_id_getUsers();
+                            });
+                        });
+                    }
+                });
+            },
+            //新增
+            ha_id_addSubmit: function () {
+                this.$refs.ha_id_addForm.validate((valid) => {
+                    if (valid) {
+                        this.$confirm('Are you sure to submit?', 'Add', {}).then(() => {
+                            this.ha_id_addLoading = true;
+                            NProgress.start();
+                            let para = Object.assign({}, this.ha_id_addForm);
+                            addUsLabResourcePlanHaId(para).then((res) => {
+                                this.ha_id_addLoading = false;
+                                NProgress.done();
+                                this.$notify({
+                                    title: 'Success',
+                                    message: 'Submit successfully!',
+                                    type: 'success'
+                                });
+                                this.$refs['ha_id_addForm'].resetFields();
+                                this.ha_id_addFormVisible = false;
+                                this.ha_id_getUsers();
+                            });
+                        });
+                    }
+                });
+            },
 
 
 
@@ -721,6 +1269,8 @@
         },
         mounted() {
             this.ip_address_getUsers();
+            this.vlan_getUsers();
+            this.ha_id_getUsers();
         }
     }
 
