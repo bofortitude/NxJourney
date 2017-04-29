@@ -88,13 +88,15 @@
                     <el-input v-model="ip_address_editForm.name" auto-complete="on"></el-input>
                 </el-form-item>
                 <el-form-item label="IP Range">
-                    <el-col :span="10">
+                    <!-- <el-col :span="10"> -->
+                    <div>
                         <el-input v-model="ip_address_editForm.minIp" auto-complete="on"></el-input>
-                    </el-col>
-                    <el-col class="line" :span="1">to</el-col>
-                    <el-col :span="10">
+                    <!-- </el-col> -->
+                    <!-- <el-col class="line" :span="1">to</el-col> -->
+                    <!-- <el-col :span="10"> -->
                         <el-input v-model="ip_address_editForm.maxIp" auto-complete="on"></el-input>
-                    </el-col>
+                    <!-- </el-col> -->
+                    </div>
                 </el-form-item>
                 <!-- <el-form-item label="IP address end">
                     <el-input v-model="ip_address_editForm.maxIp" auto-complete="on"></el-input>
