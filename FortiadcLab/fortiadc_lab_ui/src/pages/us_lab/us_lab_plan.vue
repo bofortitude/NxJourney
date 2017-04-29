@@ -30,15 +30,15 @@
                     </el-table-column> -->
                     <!-- <el-table-column type="index" width="60">
                     </el-table-column> -->
-                    <el-table-column prop="name" label="Name" width="120" sortable fit>
+                    <el-table-column prop="name" label="Name" width="200" sortable fit>
                     </el-table-column>
-                    <el-table-column prop="minIp" label="From" width="220" fit>
+                    <el-table-column prop="minIp" label="From" width="200" fit>
                     </el-table-column>
-                    <el-table-column prop="maxIp" label="To" width="220" fit>
+                    <el-table-column prop="maxIp" label="To" width="200" fit>
                     </el-table-column>
                     <el-table-column prop="ip_prefix" label="IP Prefix" width="100" fit>
                     </el-table-column>
-                    <el-table-column prop="gateway" label="Gateway" width="120" fit>
+                    <el-table-column prop="gateway" label="Gateway" width="200" fit>
                     </el-table-column>
                     <!-- <el-table-column prop="vlan" label="VLAN" width="160" fit>
                     </el-table-column>
@@ -87,11 +87,11 @@
                 </div>
 
                 <el-table stripe border :data="vlan_table_data" highlight-current-row v-loading="vlan_listLoading" style="width: 100%;">
-                    <el-table-column prop="name" label="Name" width="120" sortable fit>
+                    <el-table-column prop="name" label="Name" width="200" sortable fit>
                     </el-table-column>
-                    <el-table-column prop="minVlan" label="From" width="160" fit>
+                    <el-table-column prop="minVlan" label="From" width="140" fit>
                     </el-table-column>
-                    <el-table-column prop="maxVlan" label="To" width="160" fit>
+                    <el-table-column prop="maxVlan" label="To" width="140" fit>
                     </el-table-column>
                     <el-table-column prop="description" label="Description" min-width="180" fit>
                     </el-table-column>
@@ -131,11 +131,11 @@
                 </div>
 
                 <el-table stripe border :data="ha_id_table_data" highlight-current-row v-loading="ha_id_listLoading" style="width: 100%;">
-                    <el-table-column prop="name" label="Name" width="120" sortable fit>
+                    <el-table-column prop="name" label="Name" width="200" sortable fit>
                     </el-table-column>
-                    <el-table-column prop="minHaId" label="From" width="160" fit>
+                    <el-table-column prop="minHaId" label="From" width="120" fit>
                     </el-table-column>
-                    <el-table-column prop="maxHaId" label="To" width="160" fit>
+                    <el-table-column prop="maxHaId" label="To" width="120" fit>
                     </el-table-column>
                     <el-table-column prop="description" label="Description" min-width="180" fit>
                     </el-table-column>
@@ -903,9 +903,21 @@
                     NProgress.done();
                 });
             },
+            ip_address_refresh_table(){
+                let para = 'page_size='+this.ip_address_table_page_size+'&page=1'
+                this.ip_address_listLoading = true;
+                NProgress.start();
+                getUsLabResourcePlanIpAddress(para).then((res) => {
+                    this.ip_address_total = res.data.count;
+                    this.ip_address_table_data = res.data.results;
+                    this.ip_address_listLoading = false;
+                    NProgress.done();
+                });
+
+            },
             ip_address_handleRefresh: function () {
                 // body...
-                this.ip_address_getUsers()
+                this.ip_address_refresh_table()
             },
 
             ip_address_handleCurrentChange(val) {
@@ -1028,9 +1040,23 @@
                     NProgress.done();
                 });
             },
+            vlan_refresh_table(){
+                let para = 'page_size='+this.vlan_table_page_size+'&page=1'
+                this.vlan_listLoading = true;
+                NProgress.start();
+                getUsLabResourcePlanVlan(para).then((res) => {
+                    this.vlan_total = res.data.count;
+                    // this.table_data_raw = res.data.results;
+                    // this.transformTableDataRawToFormal();
+                    this.vlan_table_data = res.data.results;
+                    this.vlan_listLoading = false;
+                    NProgress.done();
+                });
+
+            },
             vlan_handleRefresh: function () {
                 // body...
-                this.vlan_getUsers()
+                this.vlan_refresh_table()
             },
 
             vlan_handleCurrentChange(val) {
@@ -1156,9 +1182,23 @@
                     NProgress.done();
                 });
             },
+            ha_id_refresh_table(){
+                let para = 'page_size='+this.ha_id_table_page_size+'&page=1'
+                this.ha_id_listLoading = true;
+                NProgress.start();
+                getUsLabResourcePlanHaId(para).then((res) => {
+                    this.ha_id_total = res.data.count;
+                    // this.table_data_raw = res.data.results;
+                    // this.transformTableDataRawToFormal();
+                    this.ha_id_table_data = res.data.results;
+                    this.ha_id_listLoading = false;
+                    NProgress.done();
+                });
+
+            },
             ha_id_handleRefresh: function () {
                 // body...
-                this.ha_id_getUsers()
+                this.ha_id_refresh_table()
             },
 
             ha_id_handleCurrentChange(val) {
@@ -1261,9 +1301,6 @@
                     }
                 });
             },
-
-
-
 
 
         },
