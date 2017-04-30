@@ -63,7 +63,7 @@
                 <div class="toolbar">
                     <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
                     <!-- :total="ip_address_total" -->
-                    <el-pagination layout="sizes, prev, pager, next" @current-change="ip_address_handleCurrentChange" :page-sizes="[3, 5, 10, 100, 200, 300, 400]" :page-size='3' :total="ip_address_total" style="float:right;">
+                    <el-pagination layout="sizes, prev, pager, next" @size-change="ip_address_handleSizeChange" @current-change="ip_address_handleCurrentChange" :page-sizes="[3, 5, 10, 100, 200, 300, 400]" :page-size='3' :total="ip_address_total" style="float:right;">
                     </el-pagination>
                 </div>
 
@@ -920,6 +920,11 @@
             ip_address_handleRefresh: function () {
                 // body...
                 this.ip_address_refresh_table()
+            },
+
+            ip_address_handleSizeChange(val){
+                console.log(val)
+
             },
 
             ip_address_handleCurrentChange(val) {
