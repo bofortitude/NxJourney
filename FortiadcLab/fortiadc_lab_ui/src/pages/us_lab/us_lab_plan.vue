@@ -63,7 +63,7 @@
                 <div class="toolbar">
                     <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
                     <!-- :total="ip_address_total" -->
-                    <el-pagination layout="sizes, prev, pager, next"  @size-change="ip_address_handleSizeChange" @current-change="ip_address_handleCurrentChange" :page-sizes="[100, 200, 300, 800, 1000, 2000, 10000]" :page-size='ip_address_table_page_size' :total="ip_address_total" style="float:right;">
+                    <el-pagination layout="sizes, prev, pager, next"  @size-change="ip_address_handleSizeChange" @current-change="ip_address_handleCurrentChange" :page-sizes="[5, 100, 300, 800, 1000, 2000, 10000]" :page-size='ip_address_table_page_size' :total="ip_address_total" style="float:right;">
                     </el-pagination>
                 </div>
 
@@ -107,7 +107,7 @@
 
 
                 <div class="toolbar">
-                    <el-pagination layout="sizes, prev, pager, next" @size-change="vlan_handleSizeChange" @current-change="vlan_handleCurrentChange" :page-sizes="[100, 200, 300, 800, 1000, 2000, 10000]" :page-size='vlan_table_page_size' :total="vlan_total" style="float:right;">
+                    <el-pagination layout="sizes, prev, pager, next" @size-change="vlan_handleSizeChange" @current-change="vlan_handleCurrentChange" :page-sizes="[5, 100, 300, 800, 1000, 2000, 10000]" :page-size='vlan_table_page_size' :total="vlan_total" style="float:right;">
                     </el-pagination>
                 </div>
             </el-tab-pane>
@@ -151,7 +151,7 @@
 
 
                 <div class="toolbar">
-                    <el-pagination layout="sizes, prev, pager, next" @size-change="ha_id_handleSizeChange" @current-change="ha_id_handleCurrentChange" :page-sizes="[100, 200, 300, 800, 1000, 2000, 10000]" :page-size='ha_id_table_page_size' :total="ha_id_total" style="float:right;">
+                    <el-pagination layout="sizes, prev, pager, next" @size-change="ha_id_handleSizeChange" @current-change="ha_id_handleCurrentChange" :page-sizes="[5, 100, 300, 800, 1000, 2000, 10000]" :page-size='ha_id_table_page_size' :total="ha_id_total" style="float:right;">
                     </el-pagination>
                 </div>
             </el-tab-pane>
@@ -528,7 +528,7 @@
 
                 ip_address_total: 0,
                 ip_address_page: 1,
-                ip_address_table_page_size:200,
+                ip_address_table_page_size:100,
                 ip_address_listLoading: false,
                 // sels: [],//列表选中列
 
@@ -575,7 +575,7 @@
 
                 ha_id_total: 0,
                 ha_id_page: 1,
-                ha_id_table_page_size:5,
+                ha_id_table_page_size:100,
                 ha_id_listLoading: false,
                 // sels: [],//列表选中列
 
@@ -622,7 +622,7 @@
 
                 vlan_total: 0,
                 vlan_page: 1,
-                vlan_table_page_size:5,
+                vlan_table_page_size:100,
                 vlan_listLoading: false,
                 // sels: [],//列表选中列
 
