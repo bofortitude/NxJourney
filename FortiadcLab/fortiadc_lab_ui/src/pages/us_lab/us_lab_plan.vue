@@ -929,6 +929,7 @@
 
             ip_address_handleSizeChange(val){
                 this.ip_address_table_page_size = val;
+                this.ip_address_getUsers();
             },
 
             ip_address_handleDel: function (index, row) {
