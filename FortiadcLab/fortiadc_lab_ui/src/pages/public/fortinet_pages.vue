@@ -1,4 +1,4 @@
 <template>
-    <section>fortinet pages
+    <section>Fortinet Pages is on developing ...
     </section>
 </template>

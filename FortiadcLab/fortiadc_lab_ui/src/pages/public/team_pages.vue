@@ -1,4 +1,4 @@
 <template>
-    <section>team pages
+    <section>Team pages is on developing ...
     </section>
 </template>

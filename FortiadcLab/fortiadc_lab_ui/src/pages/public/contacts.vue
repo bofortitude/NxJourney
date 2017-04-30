@@ -1,4 +1,4 @@
 <template>
-    <section>contacts
+    <section>Contacts is on developing ...
     </section>
 </template>
