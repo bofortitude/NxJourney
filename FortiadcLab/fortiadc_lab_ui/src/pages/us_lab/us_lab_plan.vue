@@ -919,6 +919,7 @@
             },
             ip_address_handleRefresh: function () {
                 // body...
+                console.log(this.ip_address_table_page_size)
                 this.ip_address_refresh_table()
             },
 
