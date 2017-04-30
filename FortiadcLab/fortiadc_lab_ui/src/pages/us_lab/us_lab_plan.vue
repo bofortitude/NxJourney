@@ -61,7 +61,8 @@
                 <!-- <div :span="24" class="toolbar"> -->
                 <div class="toolbar">
                     <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
-                    <el-pagination layout="prev, pager, next" @current-change="ip_address_handleCurrentChange" :page-size='ip_address_table_page_size' :total="ip_address_total" style="float:right;">
+                    <!-- :total="ip_address_total" -->
+                    <el-pagination layout="sizes, prev, pager, next" @current-change="ip_address_handleCurrentChange" :page-sizes="[3, 5, 10, 100, 200, 300, 400]" :page-size='ip_address_table_page_size' :total="3" style="float:right;">
                     </el-pagination>
                 </div>
 
