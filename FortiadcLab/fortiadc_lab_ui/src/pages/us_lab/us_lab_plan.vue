@@ -91,9 +91,9 @@
                 <el-table stripe border :data="vlan_table_data" highlight-current-row v-loading="vlan_listLoading" style="width: 100%;">
                     <el-table-column prop="name" label="Name" width="200" sortable fit>
                     </el-table-column>
-                    <el-table-column prop="minVlan" label="From" width="140" fit>
+                    <el-table-column prop="minVlan" label="From" width="140" sortable fit>
                     </el-table-column>
-                    <el-table-column prop="maxVlan" label="To" width="140" fit>
+                    <el-table-column prop="maxVlan" label="To" width="140" sortable fit>
                     </el-table-column>
                     <el-table-column prop="description" label="Description" min-width="180" fit>
                     </el-table-column>
@@ -107,7 +107,7 @@
 
 
                 <div class="toolbar">
-                    <el-pagination layout="prev, pager, next" @current-change="vlan_handleCurrentChange" :page-size='vlan_table_page_size' :total="vlan_total" style="float:right;">
+                    <el-pagination layout="sizes, prev, pager, next" @size-change="vlan_handleSizeChange" @current-change="vlan_handleCurrentChange" :page-sizes="[100, 200, 300, 800, 1000, 2000, 10000]" :page-size='vlan_table_page_size' :total="vlan_total" style="float:right;">
                     </el-pagination>
                 </div>
             </el-tab-pane>
@@ -135,9 +135,9 @@
                 <el-table stripe border :data="ha_id_table_data" highlight-current-row v-loading="ha_id_listLoading" style="width: 100%;">
                     <el-table-column prop="name" label="Name" width="200" sortable fit>
                     </el-table-column>
-                    <el-table-column prop="minHaId" label="From" width="120" fit>
+                    <el-table-column prop="minHaId" label="From" width="120" sortable fit>
                     </el-table-column>
-                    <el-table-column prop="maxHaId" label="To" width="120" fit>
+                    <el-table-column prop="maxHaId" label="To" width="120" sortable fit>
                     </el-table-column>
                     <el-table-column prop="description" label="Description" min-width="180" fit>
                     </el-table-column>
@@ -151,7 +151,7 @@
 
 
                 <div class="toolbar">
-                    <el-pagination layout="prev, pager, next" @current-change="ha_id_handleCurrentChange" :page-size='ha_id_table_page_size' :total="ha_id_total" style="float:right;">
+                    <el-pagination layout="sizes, prev, pager, next" @size-change="ha_id_handleSizeChange" @current-change="ha_id_handleCurrentChange" :page-sizes="[100, 200, 300, 800, 1000, 2000, 10000]" :page-size='ha_id_table_page_size' :total="ha_id_total" style="float:right;">
                     </el-pagination>
                 </div>
             </el-tab-pane>
@@ -1071,6 +1071,10 @@
                 this.vlan_page = val;
                 this.vlan_getUsers();
             },
+            vlan_handleSizeChange(val){
+                this.vlan_table_page_size = val;
+                this.vlan_getUsers();
+            },
             vlan_handleDel: function (index, row) {
                 this.$confirm('Are you sure to delete it?', 'Warning', {
                     type: 'warning'
@@ -1211,6 +1215,10 @@
 
             ha_id_handleCurrentChange(val) {
                 this.ha_id_page = val;
+                this.ha_id_getUsers();
+            },
+            ha_id_handleSizeChange(val){
+                this.ha_id_table_page_size = val;
                 this.ha_id_getUsers();
             },
             ha_id_handleDel: function (index, row) {
