@@ -4,13 +4,13 @@ from __future__ import unicode_literals
 
 from rest_framework.pagination import PageNumberPagination
 
-from models import us_lab_topology_data
-from models import us_lab_settings_data
-from models import us_lab_resource_plan_data
-from models import us_lab_resource_plan_ip_address
-from models import us_lab_resource_plan_ha_id
-from models import us_lab_resource_plan_vlan
-from models import us_lab_resource_plan_ospf_id
+from app_topo.models import us_lab_topology_data
+from app_topo.models import us_lab_settings_data
+from app_topo.models import us_lab_resource_plan_data
+from app_topo.models import us_lab_resource_plan_ip_address
+from app_topo.models import us_lab_resource_plan_ha_id
+from app_topo.models import us_lab_resource_plan_vlan
+# from models import us_lab_resource_plan_ospf_id
 
 
 import django_filters.rest_framework
@@ -21,7 +21,7 @@ from app_topo.serializers import us_lab_resource_plan_serializer
 from app_topo.serializers import us_lab_resource_plan_ip_address_serializer
 from app_topo.serializers import us_lab_resource_plan_ha_id_serializer
 from app_topo.serializers import us_lab_resource_plan_vlan_serializer
-from app_topo.serializers import us_lab_resource_plan_ospf_id_serializer
+# from app_topo.serializers import us_lab_resource_plan_ospf_id_serializer
 
 
 
@@ -72,11 +72,11 @@ class us_lab_resource_plan_vlan_viewset(viewsets.ModelViewSet):
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_fields = ("name",)
 
-class us_lab_resource_plan_ospf_id_viewset(viewsets.ModelViewSet):
-    queryset = us_lab_resource_plan_ospf_id.objects.all()
-    serializer_class = us_lab_resource_plan_ospf_id_serializer
-    pagination_class = StandardResultsSetPagination
-    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
-    filter_fields = ("name",)
+# class us_lab_resource_plan_ospf_id_viewset(viewsets.ModelViewSet):
+#     queryset = us_lab_resource_plan_ospf_id.objects.all()
+#     serializer_class = us_lab_resource_plan_ospf_id_serializer
+#     pagination_class = StandardResultsSetPagination
+#     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+#     filter_fields = ("name",)
 
 

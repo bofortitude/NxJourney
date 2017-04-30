@@ -74,15 +74,17 @@ class us_lab_resource_plan_vlan(models.Model):
     def __unicode__(self):
         return str(self.name)
 
-class us_lab_resource_plan_ospf_id(models.Model):
-    id = models.AutoField(primary_key=True, unique=True)
-    name = models.CharField(max_length=50)
-    minOspfId = models.IntegerField(blank=True, null=True)
-    maxOspfId = models.IntegerField(blank=True, null=True)
-    description = models.TextField(blank=True)
+# class us_lab_resource_plan_ospf_id(models.Model):
+#     id = models.AutoField(primary_key=True, unique=True)
+#     name = models.CharField(max_length=50)
+#     minOspfId = models.IntegerField(blank=True, null=True)
+#     maxOspfId = models.IntegerField(blank=True, null=True)
+#     description = models.TextField(blank=True)
+#
+#     def __unicode__(self):
+#         return str(self.name)
 
-    def __unicode__(self):
-        return str(self.name)
+
 
 
 
