@@ -33,22 +33,22 @@ let routes = [
         children: [
             { path: '/us_lab_topology', component: us_lab_topology, name: 'US Lab Topology' },
             { path: '/us_lab_plan', component: us_lab_plan, name: 'US Lab Resource Plan' },
-            { path: '/tester_environment', component: tester_environment, name: 'Tester Environment' },
-            { path: '/lab_tools', component: lab_tools, name: 'Lab Tools' }
+            // { path: '/tester_environment', component: tester_environment, name: 'Tester Environment' },
+            // { path: '/lab_tools', component: lab_tools, name: 'Lab Tools' }
         ]
     },
-    {
-        path: '/',
-        component: Home,
-        name: 'Public',
-        iconCls: 'fa fa-id-card-o',
-        children: [
-            { path: '/team_pages', component: team_pages, name: 'Team Pages' },
-            { path: '/fortinet_pages', component: fortinet_pages, name: 'Fortinet Pages' },
-            { path: '/contacts', component: contacts, name: 'Contacts' }
-        ]
-    },
-   
+    // {
+    //     path: '/',
+    //     component: Home,
+    //     name: 'Public',
+    //     iconCls: 'fa fa-id-card-o',
+    //     children: [
+    //         { path: '/team_pages', component: team_pages, name: 'Team Pages' },
+    //         { path: '/fortinet_pages', component: fortinet_pages, name: 'Fortinet Pages' },
+    //         { path: '/contacts', component: contacts, name: 'Contacts' }
+    //     ]
+    // },
+
     {
         path: '*',
         hidden: true,
