@@ -44,7 +44,7 @@
 
 
                     <!-- Toolbar -->
-
+                <div class="toolbar">
                     <el-pagination layout="sizes, prev, pager, next"  @size-change="ip_address_handleSizeChange" @current-change="ip_address_handleCurrentChange" :page-sizes="[5, 100, 300, 800, 1000, 2000, 10000]" :page-size='ip_address_table_page_size' :total="ip_address_total" style="float:right;">
                     </el-pagination>
                 </div>
