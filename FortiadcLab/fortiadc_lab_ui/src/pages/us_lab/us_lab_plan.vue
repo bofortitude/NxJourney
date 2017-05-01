@@ -1,7 +1,7 @@
 <template>
     <section>
 
-        <el-tabs v-model="activeName2" @tab-click="handleTabClick" type="border-card" >
+        <el-tabs v-model="activeNameUsLabPlan" @tab-click="handleTabClick" type="border-card" >
             <el-tab-pane label="IP Address" name="ip_address" >
                 <div class="toolbar">
                     <el-form :inline="true" :model="ip_address_filters">
@@ -365,7 +365,7 @@
     export default {
         data() {
             return {
-                activeName2: 'ip_address',
+                activeNameUsLabPlan: 'ip_address',
                 filters: {
                     name: ''
                 },
