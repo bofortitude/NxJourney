@@ -1,8 +1,6 @@
 <template>
     <section>
 
-        <!-- <el-col :span="24" class="toolbar" style="padding-bottom: 0px;"> -->
-        <!-- <div :span="24" class="toolbar" style="padding-bottom: 0px;"> -->
         <el-tabs v-model="activeName2" @tab-click="handleTabClick" type="border-card" >
             <el-tab-pane label="IP Address" name="ip_address" >
                 <div class="toolbar">
@@ -21,15 +19,9 @@
                         </el-form-item>
                     </el-form>
                 </div>
-                <!-- </el-col> -->
 
 
-                <!-- <el-table stripe border :data="ip_address_table_data" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;"> -->
                 <el-table stripe border :data="ip_address_table_data" highlight-current-row v-loading="ip_address_listLoading" style="width: 100%;">
-                    <!-- <el-table-column type="selection" width="55">
-                    </el-table-column> -->
-                    <!-- <el-table-column type="index" width="60">
-                    </el-table-column> -->
                     <el-table-column prop="name" label="Name" width="200" sortable fit>
                     </el-table-column>
                     <el-table-column prop="minIp" label="From" width="200" sortable fit>
@@ -40,12 +32,6 @@
                     </el-table-column>
                     <el-table-column prop="gateway" label="Gateway" width="200" fit>
                     </el-table-column>
-                    <!-- <el-table-column prop="vlan" label="VLAN" width="160" fit>
-                    </el-table-column>
-                    <el-table-column prop="ha_id" label="HA ID" width="140" fit>
-                    </el-table-column>
-                    <el-table-column prop="ospf_area_id" label="OSPF Area ID" min-width="100" fit>
-                    </el-table-column> -->
                     <el-table-column prop="description" label="Description" min-width="180" fit>
                     </el-table-column>
                     <el-table-column label="Action" width="150" fit>
@@ -56,13 +42,9 @@
                     </el-table-column>
                 </el-table>
 
-                <!--工具条-->
 
-                <!-- <div :span="24" class="toolbar"> -->
-                <!-- :page-size='ip_address_table_page_size' -->
-                <div class="toolbar">
-                    <!-- <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">Delete All</el-button> -->
-                    <!-- :total="ip_address_total" -->
+                    <!-- Toolbar -->
+
                     <el-pagination layout="sizes, prev, pager, next"  @size-change="ip_address_handleSizeChange" @current-change="ip_address_handleCurrentChange" :page-sizes="[5, 100, 300, 800, 1000, 2000, 10000]" :page-size='ip_address_table_page_size' :total="ip_address_total" style="float:right;">
                     </el-pagination>
                 </div>
@@ -179,33 +161,7 @@
                 <el-form-item label="Gateway">
                     <el-input v-model="ip_address_editForm.gateway" auto-complete="on"></el-input>
                 </el-form-item>
-                <!-- <el-form-item label="HA ID">
-                    <el-col :span="7">
-                        <el-input-number v-model="editForm.minHaId" :min="0" :max="32"></el-input-number>
-                    </el-col>
-                    <el-col class="line" :span="2">to</el-col>
-                    <el-col :span="7">
-                        <el-input-number v-model="editForm.maxHaId" :min="0" :max="32"></el-input-number>
-                    </el-col>
-                </el-form-item>
-                <el-form-item label="VLAN">
-                    <el-col :span="7">
-                        <el-input-number v-model="editForm.minVlan" :min="0" :max="4095"></el-input-number>
-                    </el-col>
-                    <el-col class="line" :span="2">to</el-col>
-                    <el-col :span="7">
-                        <el-input-number v-model="editForm.maxVlan" :min="0" :max="4095"></el-input-number>
-                    </el-col>
-                </el-form-item>
-                <el-form-item label="OSPF ID">
-                    <el-col :span="7">
-                        <el-input-number v-model="editForm.minOspfId" :min="0" :max="4095"></el-input-number>
-                    </el-col>
-                    <el-col class="line" :span="2">to</el-col>
-                    <el-col :span="7">
-                        <el-input-number v-model="editForm.maxOspfId" :min="0" :max="4095"></el-input-number>
-                    </el-col>
-                </el-form-item> -->
+
                 <el-form-item label="Description">
                     <el-input
                     type="textarea"
@@ -243,33 +199,7 @@
                 <el-form-item label="Gateway">
                     <el-input v-model="ip_address_addForm.gateway" auto-complete="on"></el-input>
                 </el-form-item>
-                <!-- <el-form-item label="HA ID">
-                    <el-col :span="7">
-                        <el-input-number v-model="addForm.minHaId" :min="0" :max="32"></el-input-number>
-                    </el-col>
-                    <el-col class="line" :span="2">to</el-col>
-                    <el-col :span="7">
-                        <el-input-number v-model="addForm.maxHaId" :min="0" :max="32"></el-input-number>
-                    </el-col>
-                </el-form-item>
-                <el-form-item label="VLAN">
-                    <el-col :span="7">
-                        <el-input-number v-model="addForm.minVlan" :min="0" :max="4095"></el-input-number>
-                    </el-col>
-                    <el-col class="line" :span="2">to</el-col>
-                    <el-col :span="7">
-                        <el-input-number v-model="addForm.maxVlan" :min="0" :max="4095"></el-input-number>
-                    </el-col>
-                </el-form-item>
-                <el-form-item label="OSPF ID">
-                    <el-col :span="7">
-                        <el-input-number v-model="addForm.minOspfId" :min="0" :max="4095"></el-input-number>
-                    </el-col>
-                    <el-col class="line" :span="2">to</el-col>
-                    <el-col :span="7">
-                        <el-input-number v-model="addForm.maxOspfId" :min="0" :max="4095"></el-input-number>
-                    </el-col>
-                </el-form-item> -->
+
                 <el-form-item label="Description">
                     <el-input
                     type="textarea"
@@ -386,7 +316,6 @@
         </el-dialog>
 
 
-
         <!-- Add HA ID -->
         <el-dialog title="New" v-model="ha_id_addFormVisible" :close-on-click-modal="false">
             <el-form :model="ha_id_addForm" label-width="80px" :rules="ha_id_addFormRules" ref="ha_id_addForm">
@@ -419,10 +348,6 @@
                 <el-button type="primary" @click.native="ha_id_addSubmit" :loading="ha_id_addLoading">Submit</el-button>
             </div>
         </el-dialog>
-
-
-
-
 
     </section>
 
@@ -662,6 +587,9 @@
                 // if (this.activeName2 === "tab_topology"){
                 //     this.draw_lab_topology()
                 // };
+                console.log('debug info -->')
+                console.log(tab)
+                console.log(event)
             },
 
 
