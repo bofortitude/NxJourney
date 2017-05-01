@@ -44,10 +44,10 @@
 
 
                     <!-- Toolbar -->
-                <div class="toolbar">
+                <!-- <div class="toolbar"> -->
                     <el-pagination layout="sizes, prev, pager, next"  @size-change="ip_address_handleSizeChange" @current-change="ip_address_handleCurrentChange" :page-sizes="[5, 100, 300, 800, 1000, 2000, 10000]" :page-size='ip_address_table_page_size' :total="ip_address_total" style="float:right;">
                     </el-pagination>
-                </div>
+                <!-- </div> -->
 
             </el-tab-pane>
 
@@ -88,10 +88,10 @@
                 </el-table>
 
 
-                <div class="toolbar">
+                <!-- <div class="toolbar"> -->
                     <el-pagination layout="sizes, prev, pager, next" @size-change="vlan_handleSizeChange" @current-change="vlan_handleCurrentChange" :page-sizes="[5, 100, 300, 800, 1000, 2000, 10000]" :page-size='vlan_table_page_size' :total="vlan_total" style="float:right;">
                     </el-pagination>
-                </div>
+                <!-- </div> -->
             </el-tab-pane>
 
 
@@ -132,10 +132,10 @@
                 </el-table>
 
 
-                <div class="toolbar">
+                <!-- <div class="toolbar"> -->
                     <el-pagination layout="sizes, prev, pager, next" @size-change="ha_id_handleSizeChange" @current-change="ha_id_handleCurrentChange" :page-sizes="[5, 100, 300, 800, 1000, 2000, 10000]" :page-size='ha_id_table_page_size' :total="ha_id_total" style="float:right;">
                     </el-pagination>
-                </div>
+                <!-- </div> -->
             </el-tab-pane>
 
         </el-tabs>
