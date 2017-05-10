@@ -5,7 +5,7 @@
           <el-tab-pane label="Topology" name="tab_topology" >
             <div id = 'tool_panel' class="toolbar">
                 <el-button type="primary" @click='click_vcenter_button' >vCenter</el-button>
-                <el-button type="primary" @click='click_ys_button' >Yongsheng Team Resource</el-button>
+                <el-button type="primary" @click='click_ys_button' >Shared Lab Resource</el-button>
                 <el-button type="primary" @click='refresh_method' type="success" style="float:right;">Refresh</el-button>
             </div>
             <div id="us_lab_topology" v-loading.body="loading"></div>
