@@ -1,6 +1,9 @@
 
-
-import ConfigParser
+import six
+if six.PY2:
+    import ConfigParser
+elif six.PY3:
+    import configparser as ConfigParser
 import os
 
 class NxConfig():

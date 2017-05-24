@@ -17,3 +17,5 @@ sys.path.insert(0, santaclara_root_path+'/mylib')
 
 sys.path.insert(0, santaclara_root_path+'/lib')
 
+sys.path.insert(0, santaclara_root_path+'/myModule')
+

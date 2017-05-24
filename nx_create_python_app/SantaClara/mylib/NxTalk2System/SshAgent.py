@@ -34,6 +34,8 @@ class SshAgent():
     def execCommand(self, command):
         self.logger.info('Executing command "'+str(command)+'" on server "'+self.remoteIp+':'+str(self.remotePort)+'" ...')
         try:
+            self.makeSureConnectionAlive()
+
             stdin, stdout, stderr = self.ssh.exec_command(command)
         except Exception as err:
             self.logger.warning('Executing command meets exception!')
@@ -58,10 +60,35 @@ class SshAgent():
         return stdoutList, stderrList
 
 
+    def isConnectionAlive(self):
+        if self.ssh.get_transport() is None:
+            # The connection has not been established
+            return False
+        else:
+            if self.ssh.get_transport().is_active():
+                # The connection is alive now
+                return True
+            else:
+                # The connection is NOT alive any more
+                return False
+
+    def makeSureConnectionAlive(self):
+        if not self.isConnectionAlive():
+            self.closeSsh()
+            self.connectRemote()
+
+
     def closeSsh(self):
         self.logger.info('Closing the connection to server "'+self.remoteIp+':'+str(self.remotePort)+'" ...')
-        self.ssh.close()
-        self.logger.info('Connection to server "'+self.remoteIp+':'+str(self.remotePort)+'" has been closed.')
+        try:
+            self.ssh.close()
+            self.logger.info(
+                'Connection to server "' + self.remoteIp + ':' + str(self.remotePort) + '" has been closed.')
+            return True
+        except:
+            self.logger.warning('Closing connection to server "'+self.remoteIp+':'+str(self.remotePort)+'" meets error.')
+            return False
+
 
 
 
